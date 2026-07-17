@@ -1,0 +1,29 @@
+name: Feature request
+description: Propose a focused business-management improvement.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Business problem
+      description: Explain the real workflow problem this feature should solve.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed result
+      description: Describe the user-visible result and any important constraints.
+    validations:
+      required: true
+  - type: dropdown
+    id: data
+    attributes:
+      label: Does this affect stored data?
+      options:
+        - No
+        - Yes, backward-compatible migration needed
+        - Unsure
+    validations:
+      required: true
