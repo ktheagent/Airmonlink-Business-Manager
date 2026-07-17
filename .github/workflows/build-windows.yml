@@ -32,7 +32,7 @@ jobs:
       - name: Package portable
         run: ./tool/package_windows.ps1
       - name: Upload portable
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: Airmonlink-Windows-Portable
           path: src/Airmonlink-Business-Manager-1.0.0-build2/dist/*Portable.zip
@@ -42,7 +42,7 @@ jobs:
       - name: Build installer
         run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\airmonlink_business_manager.iss'
       - name: Upload installer
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: Airmonlink-Windows-Installer
           path: src/Airmonlink-Business-Manager-1.0.0-build2/dist/*Setup.exe
