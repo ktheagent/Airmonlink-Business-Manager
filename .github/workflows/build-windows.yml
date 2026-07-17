@@ -1,8 +1,16 @@
 name: Build Windows
-on: workflow_dispatch
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - run: Get-ChildItem -Recurse
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - shell: pwsh
+        run: cd src/Airmonlink-Business-Manager-1.0.0-build2; flutter create --platforms=windows .; flutter pub get; flutter test; flutter build windows --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Airmonlink-Windows
+          path: src/Airmonlink-Business-Manager-1.0.0-build2/build/windows/x64/runner/Release/
