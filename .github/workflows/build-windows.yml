@@ -1,1 +1,8 @@
-{name: X, on: push, permissions: {contents: write}, jobs: {x: {runs-on: windows-latest, steps: [{uses: actions/checkout4v4}, {shell: pwsh, run: "Expand-Archive *.zip src -Force; git config user.name bot; git config user.email bot@a; git add src; git commit -m x; git push"}]}}}
+name: Build Windows
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: Get-ChildItem -Recurse
