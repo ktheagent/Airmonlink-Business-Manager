@@ -1,8 +1,10 @@
-name: Build Windows
-on: workflow_dispatch
+name: Unpack source
+on: push
+permissions:
+  contents: write
 jobs:
-  build:
-    runs-on: windows-latest
+  unpack:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: Get-ChildItem -Recurse
+      - run: rm -rf src; mkdir src; unzip -o *.zip -d src; git config user.name github-actions; git config user.email actions@github.com; git add src; git commit -m "Unpack source archive" || exit 0; git push
