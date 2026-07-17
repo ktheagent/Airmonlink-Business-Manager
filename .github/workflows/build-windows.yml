@@ -1,10 +1,16 @@
-name: Unpack source
-on: push
-permissions:
-  contents: write
+name: Build Windows
+on: [push, workflow_dispatch]
 jobs:
-  unpack:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: rm -rf src; mkdir src; unzip -o *.zip -d src; git config user.name github-actions; git config user.email actions@github.com; git add src; git commit -m "Unpack source archive" || exit 0; git push
+      - uses: actions/checkout4v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - shell: pwsh
+        run: cd src/Airmonlink-Business-Manager-1.0.0-build2; flutter create --platforms=windows .; flutter pub get; flutter test; flutter build windows --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Airmonlink-Windows
+          path: src/Airmonlink-Business-Manager-1.0.0-build2/build/windows/x64/runner/Release/
