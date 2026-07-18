@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'core/app_constants.dart';
 import 'core/app_theme.dart';
-import 'screens/shell_screen.dart';
+import 'screens/modern_shell_screen.dart';
 import 'state/app_state.dart';
 
 class AirmonlinkBusinessManagerApp extends StatefulWidget {
@@ -37,7 +37,7 @@ class _AirmonlinkBusinessManagerAppState
         title: AppConstants.appName,
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light(),
-        home: const ShellScreen(),
+        home: const ModernShellScreen(),
       ),
     );
   }
