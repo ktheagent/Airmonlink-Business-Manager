@@ -35,4 +35,4 @@ if (Test-Path $mainCpp) {
     )
     Set-Content $mainCpp $content -NoNewline
 }
-$p='lib/services/database_service.dart';(gc $p -Raw).Replace('""',"`'`'")|sc $p;$p='lib/core/app_constants.dart';(gc $p -Raw).Replace('.db','_v2.db')|sc $p
+$p='lib/services/database_service.dart';(gc $p -Raw).Replace('""',"\'\'")|sc $p;$p='lib/core/app_constants.dart';(gc $p -Raw).Replace('.db','_v2.db')|sc $p
