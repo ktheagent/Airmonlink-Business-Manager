@@ -9,4 +9,4 @@ Set-Content $dbSource $dbContent -NoNewline
 $constantsSource = 'lib/core/app_constants.dart'
 $constantsContent = Get-Content $constantsSource -Raw
 $constantsContent = $constantsContent.Replace('airmonlink_business_manager.db', 'airmonlink_business_manager_v2.db')
-Set-Content $constantSource $constantsContent -NoNewline
+Set-Content $constantsSource $constantsContent -NoNewline
