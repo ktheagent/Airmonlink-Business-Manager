@@ -10,3 +10,8 @@ $constantsSource = 'lib/core/app_constants.dart'
 $constantsContent = Get-Content $constantsSource -Raw
 $constantsContent = $constantsContent.Replace('airmonlink_business_manager.db', 'airmonlink_business_manager_v2.db')
 Set-Content $constantsSource $constantsContent -NoNewline
+
+& "$PSScriptRoot/patch_title.ps1"
+& "$PSScriptRoot/patch_pos_barcode.ps1"
+& "$PSScriptRoot/patch_pos_receipt.ps1"
+& "$PSScriptRoot/patch_product_filters.ps1"
