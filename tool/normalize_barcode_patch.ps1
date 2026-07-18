@@ -1,4 +1,1 @@
-$p="$PSScriptRoot/patch_pos_barcode.ps1"
-$c=Get-Content $p -Raw
-$c=$c.Replace("`$old = '  void _addProduct(Product product) {'","`$old = 'void _addProduct(Product product) {'")
-Set-Content $p $c -NoNewline
+$p='lib/screens/pos_screen.dart';$c=gc $p -Raw;$c=$c.Replace('void _addProduct(Product product) {','  void _addProduct(Product product) {');sc $p $c -NoNewline
