@@ -225,12 +225,12 @@ class _PosScreenState extends State<PosScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                                on@ressed: () => _changeQuantity(line.product, -1),
+                                onPressed: () => _changeQuantity(line.product, -1),
                                 icon: const Icon(Icons.remove),
                               ),
                             Text(AppFormatters.money(line.total)),
                             IconButton(
-                                on@ressed: line.quantity >= line.product.stockQty ? null : () => _changeQuantity(line.product, 1),
+                                onPressed: line.quantity >= line.product.stockQty ? null : () => _changeQuantity(line.product, 1),
                                 icon: const Icon(Icons.add),
                               ),
                           ],
