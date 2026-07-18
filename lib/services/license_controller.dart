@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_foundation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../core/app_constants.dart';
@@ -96,7 +96,7 @@ class LicenseController extends ChangeNotifier {
       final trial = AppLicense.fromJson(jsonDecode(raw) as Map<String, dynamic>);
       final now = DateTime.now().toUtc();
       final last = trial.lastValidUseAt?.toUtc();
-      if (last != null && now.isBefore(last.subtract(const Duration$hours: 24)))) {
+      if (last != null && now.isBefore(last.subtract(const Duration(hours: 24)))) {
         return trial.copyWith(status: LicenseStatus.invalid);
       }
       final updated = trial.copyWith(lastValidUseAt: now);
