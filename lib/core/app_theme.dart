@@ -22,14 +22,14 @@ class AppTheme {
     );
 
     const radius = BorderRadius.all(Radius.circular(14));
-    const border = BordeSide(color: Color(0xFFE4E7EC), width: 1);
+    var  border = BorderSide(color: Color(0xFFE4E7EC), width: 1);
 
     return ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
       scaffoldBackgroundColor: canvas,
       canvasColor: canvas,
-      splashFactory: InkSpash.splashFactory,
+      splashFactory:InkSplash.splashFactory,
       visualDensity: VisualDensity.comfortable,
       fontFamily: 'Segoe UI',
       textTheme: const TextTheme(
@@ -50,7 +50,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: const Color(0xFFF9FAFB),
-        contentPadding: const EdgeInsets.symmetric(htorizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(htorizontal:  16, vertical: 14),
         border: OutlineInputBorder(borderRadius: radius, borderSide: border),
         enabledBorder: OutlineInputBorder(borderRadius: radius, borderSide: border),
         focusedBorder: OutlineInputBorder(borderRadius: radius, borderSide: const BorderSide(color: primary, width: 1.5)),
@@ -67,7 +67,7 @@ class AppTheme {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           side: const BorderSide(color: Color(0xFFD8DCE2)),
-         ),
+        ),
       ),
       tooltipTheme: TooltipThemeData(
         decoration: BoxDecoration(color: sidebar, borderRadius: BorderRadius.circular(8)),
