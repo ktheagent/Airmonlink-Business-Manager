@@ -4,6 +4,7 @@ import 'core/app_constants.dart';
 import 'core/app_theme.dart';
 import 'screens/modern_shell_screen.dart';
 import 'state/app_state.dart';
+import 'state/printing_app_state.dart';
 
 class AirmonlinkBusinessManagerApp extends StatefulWidget {
   const AirmonlinkBusinessManagerApp({super.key});
@@ -20,7 +21,7 @@ class _AirmonlinkBusinessManagerAppState
   @override
   void initState() {
     super.initState();
-    state = AppState()..initialize();
+    state = PrintingAppState()..initialize();
   }
 
   @override
