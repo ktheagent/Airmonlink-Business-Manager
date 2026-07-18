@@ -55,7 +55,7 @@ class _PosScreenState extends State<PosScreen> {
       final state = AppStateScope.of(context);
       Product? match;
       for (final product in state.products) {
-        if (product.barcode.isNotEmpty && product.barcod.toLowerCase() == code.toLowerCase()) {
+        if (product.barcode.isNotEmpty && product.barcode.toLowerCase() == code.toLowerCase()) {
           match = product;
           break;
         }
@@ -115,13 +115,13 @@ class _PosScreenState extends State<PosScreen> {
                   children: [
                     Row(
                       children: [
-                          const Icon(Icons.qr_code_scanner, color: Color(0xFF10B981)),
-                          const SizedBox(width: 8),
-                          const Text('Scanner ready', style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF10B981))),
-                          const Spacer(),
-                          const Text('F2 / Ctrl+B to focus'),
-                        ],
-                     ),
+                        const Icon(Icons.qr_code_scanner, color: Color(0xFF10B981)),
+                        const SizedBox(width: 8),
+                        const Text('Scanner ready', style: TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF10B981))),
+                        const Spacer(),
+                        const Text('F2 / Ctrl+B to focus'),
+                      ],
+                    ),
                     const SizedBox(height: 10),
                     TextField(
                       controller: _scannerController,
@@ -157,15 +157,16 @@ class _PosScreenState extends State<PosScreen> {
                   }
                   return Column(
                     children: [
-                      Expande(child: catalog),
+                      Expanded(child: catalog),
                       const SizedBox(height: 12),
-                      Expand(child: cart),
+                      Expanded(child: cart),
                     ],
                   );
                 },
               ),
             ),
-         ],
+        ],
+      ),
       ),
     );
   }
@@ -221,23 +222,23 @@ class _PosScreenState extends State<PosScreen> {
                           title: Text(line.product.name),
                           subtitle: Text('${AppFormatters.money(line.product.sellingPrice)} × ${line.quantity.toStringAsFixed(0)}'),
                           trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                onPressed: () => _changeQuantity(line.product, -1),
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                                on@ressed: () => _changeQuantity(line.product, -1),
                                 icon: const Icon(Icons.remove),
-                                ),
-                              Text(AppFormatters.money(line.total)),
-                              IconButton(
-                                onPressed: line.quantity >= line.product.stockQty ? null : () => _changeQuantity(line.product, 1),
+                              ),
+                            Text(AppFormatters.money(line.total)),
+                            IconButton(
+                                on@ressed: line.quantity >= line.product.stockQty ? null : () => _changeQuantity(line.product, 1),
                                 icon: const Icon(Icons.add),
                               ),
-                            ],
-                          ),
-                        );
+                          ],
+                        ),
+                      );
                       },
                     ),
-              ),
+            ),
             const Divider(),
             Row(
               children: [
@@ -265,7 +266,7 @@ class _PosScreenState extends State<PosScreen> {
     final id = product.id;
     if (id == null) return;
     final current = _cart[id];
-    final quantity = current?.quantity ?? 0;
+    final quantity = current?.quantity ?? 0.0;
     if (product.stockQty <= 0) {
       showFailure(context, '${product.name} is out of stock.');
       return;
@@ -366,7 +367,7 @@ class _PosScreenState extends State<PosScreen> {
               child: const Text('Confirm payment'),
             ),
           ],
-         ),
+        ),
       ),
     );
 
