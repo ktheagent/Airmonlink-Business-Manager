@@ -9,5 +9,9 @@ class AppConstants {
   static const supportUrl = 'https://airmonlink.com/support';
   static const trialDays = 14;
 
+  // Insert the Base64-encoded 32-byte Ed25519 public key
+  // from the private Airmonlink licensing server before production.
+  static const licensePublicKeyBase64 = '';
+
   AppConstants._();
 }
