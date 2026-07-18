@@ -12,7 +12,3 @@ $constantsContent = $constantsContent.Replace('airmonlink_business_manager.db', 
 Set-Content $constantsSource $constantsContent -NoNewline
 
 & "$PSScriptRoot/patch_title.ps1"
-& "$PSScriptRoot/normalize_barcode_patch.ps1"
-& "$PSScriptRoot/patch_pos_barcode.ps1"
-& "$PSScriptRoot/patch_pos_receipt.ps1"
-& "$PSScriptRoot/patch_product_filters.ps1"
