@@ -94,5 +94,5 @@ class AppTheme {
     );
   }
 
-  AppThem._();
+  AppTheme._();
 }
