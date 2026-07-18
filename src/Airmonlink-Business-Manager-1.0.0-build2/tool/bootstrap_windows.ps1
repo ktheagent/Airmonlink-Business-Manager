@@ -1,3 +1,5 @@
+flutter config --enable-windows-desktop
+flutter create --platforms=windows . 
 $ErrorActionPreference = 'Stop'
 
 if (-not (Test-Path 'windows')) {
