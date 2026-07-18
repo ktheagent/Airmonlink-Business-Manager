@@ -1,8 +1,50 @@
 name: Build Windows
-on: workflow_dispatch
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 jobs:
   build:
     runs-on: windows-latest
+    timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
-      - run: Get-ChildItem -Recurse
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2.23.0
+        with:
+          flutter-version: '3.44.0'
+          channel: stable
+          cache: true
+      - name: Generate Windows project
+        run: flutter create --platforms=windows --project-name airmonlink_business_manager .
+      - name: Repair native source
+        shell: pwsh
+        run: ./tool/prepare_release.ps1
+      - name: Dependencies
+        run: flutter pub get
+      - name: Analyze
+        run: flutter analyze
+      - name: Tests
+        run: flutter test --reporter expanded
+      - name: Build Windows
+        run: flutter build windows --release
+      - name: Package portable
+        shell: pwsh
+        run: ./tool/package_windows.ps1
+      - name: Upload portable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Airmonlink-Windows-Portable
+          path: dist/*Portable.zip
+          if-no-files-found: error
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+      - name: Build installer
+        shell: pwsh
+        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\airmonlink_business_manager.iss'
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: Airmonlink-Windows-Installer
+          path: dist/*Setup.exe
+          if-no-files-found: error
