@@ -12,3 +12,7 @@ $constantsContent = $constantsContent.Replace('airmonlink_business_manager.db', 
 Set-Content $constantsSource $constantsContent -NoNewline
 
 & "$PSScriptRoot/patch_title.ps1"
+
+& "$PSScriptRoot/patch_modern_theme.ps1"
+
+& "$PSScriptRoot/patch_modern_navigation.ps1"
