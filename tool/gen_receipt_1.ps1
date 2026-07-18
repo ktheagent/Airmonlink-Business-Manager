@@ -1,5 +1,5 @@
 $path = 'lib/services/receipt_service.dart'
-@'
+$content = @'
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -17,5 +17,5 @@ class ReceiptService {
     final document = pw.Document();
     final printedAt =
         DateTime.now().toLocal().toString().split('.').first;
-'
- | Set-Content $path -NoNewline
+'@
+Set-Content $path $content -NoNewline
