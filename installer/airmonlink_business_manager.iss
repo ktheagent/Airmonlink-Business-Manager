@@ -2,7 +2,6 @@
 #define MyAppVersion "1.1.0"
 #define MyAppPublisher "Airmonlink"
 #define MyAppExeName "airmonlink_business_manager.exe"
-#define MyAppIcon "..\assets\branding\airmonlink_business_manager_icon.png"
 
 [Setup]
 AppId={{8B018058-1F0E-4DCF-8CB8-E3DC08714E4F}
@@ -21,7 +20,6 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=lowest
 LicenseFile=..\installer\Airmonlink-Business-Manager-EULA.rtf
-SetupIconFile={#MyAppIcon}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 
 [Files]
