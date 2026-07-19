@@ -85,7 +85,7 @@ class LicenseService {
     required String licenseKey,
     required String businessName,
   }) async {
-    final appPackageInfo = this.packageInfo ?? await PackageInfo.fromPlatform();
+    final appPackageInfo = packageInfo ?? await PackageInfo.fromPlatform();
     final deviceId = await _deviceIdentityService.getDeviceIdentifier();
     final response = await _apiClient.activate(
       licenseKey: licenseKey,
