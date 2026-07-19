@@ -1,1 +1,0 @@
-$p='lib/screens/pos_screen.dart';$c=gc $p -Raw;$c=$c.Replace('void _addProduct(Product product) {','  void _addProduct(Product product) {');sc $p $c -NoNewline

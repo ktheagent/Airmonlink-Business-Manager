@@ -76,8 +76,8 @@ class ExpensesScreen extends StatelessWidget {
                                     width: 260,
                                     child: Text(
                                       expense.note.isEmpty ? '—' : expense.note,
-                                    overflow: TextOverflow.ellipsis,
-                                ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ),
                                 DataCell(Text(AppFormatters.dateTime(expense.createdAt))),

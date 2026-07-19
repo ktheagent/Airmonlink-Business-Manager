@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
 
 import '../core/app_constants.dart';
 import '../state/app_state.dart';
 import '../widgets/feedback.dart';
 import '../widgets/page_header.dart';
+import '../widgets/pdf_preview_dialog.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -118,6 +120,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         const SizedBox(height: 18),
         Card(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Printer test',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Preview and print a high-contrast test page before using receipts or reports. The preview must show text and two test bars before you send it to the printer.',
+                ),
+                const SizedBox(height: 16),
+                FilledButton.tonalIcon(
+                  onPressed: () => _printerTest(context, state),
+                  icon: const Icon(Icons.print_outlined),
+                  label: const Text('Open printer test'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 18),
+        Card(
           child: ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text(AppConstants.appName),
@@ -155,5 +184,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } catch (error) {
       if (context.mounted) showFailure(context, error);
     }
+  }
+
+  Future<void> _printerTest(BuildContext context, AppState state) async {
+    await showDialog<void>(
+      context: context,
+      builder: (context) => AppPdfPreviewDialog(
+        title: 'Printer test page',
+        buildPdf: state.buildPrinterTestPdf,
+        fileName: 'airmonlink-printer-test.pdf',
+        initialPageFormat: PdfPageFormat.a4,
+        pageFormats: const {
+          'A4': PdfPageFormat.a4,
+          'Letter': PdfPageFormat.letter,
+        },
+      ),
+    );
   }
 }

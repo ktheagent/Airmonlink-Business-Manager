@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pdf/pdf.dart';
 
 import '../models/contact.dart';
 import '../models/dashboard_metrics.dart';
@@ -34,6 +37,10 @@ class AppState extends ChangeNotifier {
   String get businessName => settings['business_name']?.trim().isNotEmpty == true
       ? settings['business_name']!
       : 'My Business';
+
+  String get businessPhone => settings['business_phone']?.trim() ?? '';
+
+  String get businessAddress => settings['business_address']?.trim() ?? '';
 
   Future<void> initialize() async {
     isLoading = true;
@@ -126,12 +133,65 @@ class AppState extends ChangeNotifier {
 
   Future<String> exportInventoryCsv() => _reports.exportInventoryCsv(products);
 
+  Future<Uint8List> buildSummaryPdf(PdfPageFormat format) {
+    return _reports.buildSummaryPdf(
+      pageFormat: format,
+      businessName: businessName,
+      metrics: metrics,
+      sales: sales,
+      expenses: expenses,
+    );
+  }
+
+  Future<Uint8List> buildReceiptPdf({
+    required PdfPageFormat format,
+    required String invoiceNo,
+    required SaleDraft sale,
+    required DateTime soldAt,
+    String? customerName,
+  }) {
+    return _reports.buildReceiptPdf(
+      pageFormat: format,
+      businessName: businessName,
+      businessPhone: businessPhone,
+      businessAddress: businessAddress,
+      invoiceNo: invoiceNo,
+      sale: sale,
+      soldAt: soldAt,
+      customerName: customerName,
+    );
+  }
+
+  Future<Uint8List> buildPrinterTestPdf(PdfPageFormat format) {
+    return _reports.buildPrinterTestPdf(
+      pageFormat: format,
+      businessName: businessName,
+    );
+  }
+
   Future<String> exportSummaryPdf() => _reports.exportSummaryPdf(
         businessName: businessName,
         metrics: metrics,
         sales: sales,
         expenses: expenses,
       );
+
+  Future<String> exportReceiptPdf({
+    required String invoiceNo,
+    required SaleDraft sale,
+    required DateTime soldAt,
+    String? customerName,
+  }) {
+    return _reports.exportReceiptPdf(
+      businessName: businessName,
+      businessPhone: businessPhone,
+      businessAddress: businessAddress,
+      invoiceNo: invoiceNo,
+      sale: sale,
+      soldAt: soldAt,
+      customerName: customerName,
+    );
+  }
 }
 
 class AppStateScope extends InheritedNotifier<AppState> {
