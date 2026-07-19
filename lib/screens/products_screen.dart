@@ -109,34 +109,45 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      IconButton(
-                                        tooltip: 'Adjust stock',
-                                        onPressed: () => _adjustStock(
-                                          context,
-                                          state,
-                                          product,
-                                        ),
-                                        icon: const Icon(
-                                          Icons.inventory_2_outlined,
+                                      Tooltip(
+                                        message: 'Adjust stock',
+                                        child: IconButton(
+                                          onPressed: () => _adjustStock(
+                                            context,
+                                            state,
+                                            product,
+                                          ),
+                                          icon: const Icon(
+                                            Icons.inventory_2_outlined,
+                                          ),
+                                          tooltip: 'Adjust stock',
                                         ),
                                       ),
-                                      IconButton(
-                                        tooltip: 'Edit product',
-                                        onPressed: () => _showProductDialog(
-                                          context,
-                                          state,
-                                          product: product,
+                                      Tooltip(
+                                        message: 'Edit product',
+                                        child: IconButton(
+                                          onPressed: () => _showProductDialog(
+                                            context,
+                                            state,
+                                            product: product,
+                                          ),
+                                          icon: const Icon(Icons.edit_outlined),
+                                          tooltip: 'Edit product',
                                         ),
-                                        icon: const Icon(Icons.edit_outlined),
                                       ),
-                                      IconButton(
-                                        tooltip: 'Delete product',
-                                        onPressed: () => _deleteProduct(
-                                          context,
-                                          state,
-                                          product,
+                                      Tooltip(
+                                        message: 'Delete product',
+                                        child: IconButton(
+                                          onPressed: () => _deleteProduct(
+                                            context,
+                                            state,
+                                            product,
+                                          ),
+                                          icon: const Icon(
+                                            Icons.delete_outline,
+                                          ),
+                                          tooltip: 'Delete product',
                                         ),
-                                        icon: const Icon(Icons.delete_outline),
                                       ),
                                     ],
                                   ),

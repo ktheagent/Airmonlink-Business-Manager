@@ -7,7 +7,7 @@ class SaleItem {
     required this.costPrice,
   });
 
-  final int productId;
+  final int? productId;
   final String productName;
   final double quantity;
   final double unitPrice;

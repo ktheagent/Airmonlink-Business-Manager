@@ -119,76 +119,80 @@ class _PosScreenState extends State<PosScreen> {
                           itemBuilder: (context, index) {
                             final product = products[index];
                             final inCart = _cart[product.id]?.quantity ?? 0;
-                            return InkWell(
-                              borderRadius: BorderRadius.circular(14),
-                              onTap: () => _addProduct(product),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: const Color(0xFFDCE4EF),
+                            return Tooltip(
+                              message:
+                                  'Add ${product.name} to the current sale',
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(14),
+                                onTap: () => _addProduct(product),
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: const Color(0xFFDCE4EF),
+                                    ),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
-                                  borderRadius: BorderRadius.circular(14),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(13),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              product.category,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(
-                                                context,
-                                              ).textTheme.labelMedium,
-                                            ),
-                                          ),
-                                          if (inCart > 0)
-                                            Badge(
-                                              label: Text(
-                                                inCart.toStringAsFixed(0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(13),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                product.category,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.labelMedium,
                                               ),
                                             ),
-                                        ],
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        product.name,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleSmall
-                                            ?.copyWith(
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                      ),
-                                      const SizedBox(height: 6),
-                                      Text(
-                                        AppFormatters.money(
-                                          product.sellingPrice,
+                                            if (inCart > 0)
+                                              Badge(
+                                                label: Text(
+                                                  inCart.toStringAsFixed(0),
+                                                ),
+                                              ),
+                                          ],
                                         ),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                              color: Theme.of(
-                                                context,
-                                              ).colorScheme.primary,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                      ),
-                                      Text(
-                                        '${product.stockQty.toStringAsFixed(1)} available',
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodySmall,
-                                      ),
-                                    ],
+                                        const Spacer(),
+                                        Text(
+                                          product.name,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 6),
+                                        Text(
+                                          AppFormatters.money(
+                                            product.sellingPrice,
+                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(
+                                                color: Theme.of(
+                                                  context,
+                                                ).colorScheme.primary,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                        ),
+                                        Text(
+                                          '${product.stockQty.toStringAsFixed(1)} available',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -268,13 +272,17 @@ class _PosScreenState extends State<PosScreen> {
                                   const SizedBox(height: 8),
                                   Row(
                                     children: [
-                                      IconButton.outlined(
-                                        visualDensity: VisualDensity.compact,
-                                        onPressed: () =>
-                                            _changeQuantity(line.product, -1),
-                                        icon: const Icon(
-                                          Icons.remove,
-                                          size: 17,
+                                      Tooltip(
+                                        message: 'Reduce quantity',
+                                        child: IconButton.outlined(
+                                          visualDensity: VisualDensity.compact,
+                                          onPressed: () =>
+                                              _changeQuantity(line.product, -1),
+                                          icon: const Icon(
+                                            Icons.remove,
+                                            size: 17,
+                                          ),
+                                          tooltip: 'Reduce quantity',
                                         ),
                                       ),
                                       Padding(
@@ -285,17 +293,21 @@ class _PosScreenState extends State<PosScreen> {
                                           line.quantity.toStringAsFixed(0),
                                         ),
                                       ),
-                                      IconButton.outlined(
-                                        visualDensity: VisualDensity.compact,
-                                        onPressed:
-                                            line.quantity >=
-                                                line.product.stockQty
-                                            ? null
-                                            : () => _changeQuantity(
-                                                line.product,
-                                                1,
-                                              ),
-                                        icon: const Icon(Icons.add, size: 17),
+                                      Tooltip(
+                                        message: 'Increase quantity',
+                                        child: IconButton.outlined(
+                                          visualDensity: VisualDensity.compact,
+                                          onPressed:
+                                              line.quantity >=
+                                                  line.product.stockQty
+                                              ? null
+                                              : () => _changeQuantity(
+                                                  line.product,
+                                                  1,
+                                                ),
+                                          icon: const Icon(Icons.add, size: 17),
+                                          tooltip: 'Increase quantity',
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -311,12 +323,15 @@ class _PosScreenState extends State<PosScreen> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                IconButton(
-                                  tooltip: 'Remove',
-                                  onPressed: () => setState(
-                                    () => _cart.remove(line.product.id),
+                                Tooltip(
+                                  message: 'Remove from sale',
+                                  child: IconButton(
+                                    onPressed: () => setState(
+                                      () => _cart.remove(line.product.id),
+                                    ),
+                                    icon: const Icon(Icons.close),
+                                    tooltip: 'Remove from sale',
                                   ),
-                                  icon: const Icon(Icons.close),
                                 ),
                               ],
                             ),

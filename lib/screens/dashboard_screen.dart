@@ -20,13 +20,16 @@ class DashboardScreen extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       children: [
         PageHeader(
-          title: 'Dashboard',
+          title: 'Executive dashboard',
           subtitle: 'Live overview for ${state.businessName}',
           actions: [
-            OutlinedButton.icon(
-              onPressed: state.refreshAll,
-              icon: const Icon(Icons.refresh),
-              label: const Text('Refresh'),
+            Tooltip(
+              message: 'Refresh dashboard data',
+              child: OutlinedButton.icon(
+                onPressed: state.refreshAll,
+                icon: const Icon(Icons.refresh),
+                label: const Text('Refresh'),
+              ),
             ),
           ],
         ),
@@ -103,6 +106,7 @@ class DashboardScreen extends StatelessWidget {
                   'Low-stock attention',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w700,
+                    color: const Color(0xFF0F2A5A),
                   ),
                 ),
                 const SizedBox(height: 14),
@@ -158,6 +162,7 @@ class DashboardScreen extends StatelessWidget {
                   'Recent sales',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w700,
+                    color: const Color(0xFF0F2A5A),
                   ),
                 ),
                 const SizedBox(height: 14),

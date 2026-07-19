@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pdf/pdf.dart';
@@ -158,6 +160,75 @@ class AppState extends ChangeNotifier {
       sale: sale,
       soldAt: soldAt,
       customerName: customerName,
+    );
+  }
+
+  Future<Uint8List> buildReceiptPdfForSavedSale(
+    SaleRecord sale, {
+    PdfPageFormat? format,
+  }) async {
+    final items = await _database.getSaleItems(sale.id!);
+    final customer = sale.customerId != null
+        ? await _database.getContactById(sale.customerId!)
+        : null;
+    return _reports.buildReceiptPdf(
+      pageFormat: format ?? PdfPageFormat.roll80,
+      businessName: businessName,
+      businessPhone: businessPhone,
+      businessAddress: businessAddress,
+      invoiceNo: sale.invoiceNo,
+      sale: SaleDraft(
+        items: items,
+        discount: sale.discount,
+        paymentMethod: sale.paymentMethod,
+        customerId: sale.customerId,
+      ),
+      soldAt: sale.createdAt,
+      customerName: customer?.name,
+    );
+  }
+
+  Future<void> reprintReceipt(SaleRecord sale) async {
+    final bytes = await buildReceiptPdfForSavedSale(sale);
+    final documents = await _reports.exportReceiptPdf(
+      businessName: businessName,
+      businessPhone: businessPhone,
+      businessAddress: businessAddress,
+      invoiceNo: sale.invoiceNo,
+      sale: SaleDraft(
+        items: await _database.getSaleItems(sale.id!),
+        discount: sale.discount,
+        paymentMethod: sale.paymentMethod,
+        customerId: sale.customerId,
+      ),
+      soldAt: sale.createdAt,
+      customerName:
+          (sale.customerId != null
+                  ? await _database.getContactById(sale.customerId!)
+                  : null)
+              ?.name,
+    );
+    await File(documents).writeAsBytes(bytes, flush: true);
+  }
+
+  Future<String> exportReceiptPdfForSavedSale(SaleRecord sale) async {
+    final items = await _database.getSaleItems(sale.id!);
+    final customer = sale.customerId != null
+        ? await _database.getContactById(sale.customerId!)
+        : null;
+    return _reports.exportReceiptPdf(
+      businessName: businessName,
+      businessPhone: businessPhone,
+      businessAddress: businessAddress,
+      invoiceNo: sale.invoiceNo,
+      sale: SaleDraft(
+        items: items,
+        discount: sale.discount,
+        paymentMethod: sale.paymentMethod,
+        customerId: sale.customerId,
+      ),
+      soldAt: sale.createdAt,
+      customerName: customer?.name,
     );
   }
 

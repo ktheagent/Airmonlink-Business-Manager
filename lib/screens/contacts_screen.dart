@@ -80,13 +80,16 @@ class ContactsScreen extends StatelessWidget {
                                 DataCell(
                                   contact.balance <= 0
                                       ? const Text('—')
-                                      : TextButton(
-                                          onPressed: () => _recordPayment(
-                                            context,
-                                            state,
-                                            contact,
+                                      : Tooltip(
+                                          message: 'Record payment',
+                                          child: TextButton(
+                                            onPressed: () => _recordPayment(
+                                              context,
+                                              state,
+                                              contact,
+                                            ),
+                                            child: const Text('Record payment'),
                                           ),
-                                          child: const Text('Record payment'),
                                         ),
                                 ),
                               ],

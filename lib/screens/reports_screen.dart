@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 
 import '../core/formatters.dart';
+import '../models/sale.dart';
 import '../state/app_state.dart';
 import '../widgets/feedback.dart';
 import '../widgets/page_header.dart';
@@ -119,6 +120,7 @@ class ReportsScreen extends StatelessWidget {
                         DataColumn(label: Text('Subtotal'), numeric: true),
                         DataColumn(label: Text('Discount'), numeric: true),
                         DataColumn(label: Text('Total'), numeric: true),
+                        DataColumn(label: Text('Actions')),
                       ],
                       rows: state.sales.map((sale) {
                         return DataRow(
@@ -131,6 +133,42 @@ class ReportsScreen extends StatelessWidget {
                             DataCell(Text(AppFormatters.money(sale.subtotal))),
                             DataCell(Text(AppFormatters.money(sale.discount))),
                             DataCell(Text(AppFormatters.money(sale.total))),
+                            DataCell(
+                              Wrap(
+                                spacing: 8,
+                                children: [
+                                  Tooltip(
+                                    message: 'View receipt',
+                                    child: IconButton(
+                                      onPressed: () =>
+                                          _viewReceipt(context, state, sale),
+                                      icon: const Icon(
+                                        Icons.visibility_outlined,
+                                      ),
+                                      tooltip: 'View receipt',
+                                    ),
+                                  ),
+                                  Tooltip(
+                                    message: 'Reprint receipt',
+                                    child: IconButton(
+                                      onPressed: () =>
+                                          _reprintReceipt(context, state, sale),
+                                      icon: const Icon(Icons.print_outlined),
+                                      tooltip: 'Reprint receipt',
+                                    ),
+                                  ),
+                                  Tooltip(
+                                    message: 'Save receipt PDF',
+                                    child: IconButton(
+                                      onPressed: () =>
+                                          _saveReceiptPdf(context, state, sale),
+                                      icon: const Icon(Icons.save_alt_outlined),
+                                      tooltip: 'Save receipt PDF',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         );
                       }).toList(),
@@ -159,6 +197,58 @@ class ReportsScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> _viewReceipt(
+    BuildContext context,
+    AppState state,
+    SaleRecord sale,
+  ) async {
+    await showDialog<void>(
+      context: context,
+      builder: (context) => AppPdfPreviewDialog(
+        title: 'Receipt ${sale.invoiceNo}',
+        buildPdf: (format) =>
+            state.buildReceiptPdfForSavedSale(sale, format: format),
+        fileName: 'airmonlink-receipt-${sale.invoiceNo}.pdf',
+        initialPageFormat: PdfPageFormat.roll80,
+        pageFormats: const {
+          '57 mm': PdfPageFormat.roll57,
+          '80 mm': PdfPageFormat.roll80,
+          'A4': PdfPageFormat.a4,
+        },
+      ),
+    );
+  }
+
+  Future<void> _reprintReceipt(
+    BuildContext context,
+    AppState state,
+    SaleRecord sale,
+  ) async {
+    try {
+      await state.reprintReceipt(sale);
+      if (context.mounted) {
+        showSuccess(context, 'Receipt reprinted for ${sale.invoiceNo}.');
+      }
+    } catch (error) {
+      if (context.mounted) showFailure(context, error);
+    }
+  }
+
+  Future<void> _saveReceiptPdf(
+    BuildContext context,
+    AppState state,
+    SaleRecord sale,
+  ) async {
+    try {
+      final path = await state.exportReceiptPdfForSavedSale(sale);
+      if (context.mounted) {
+        showSuccess(context, 'Receipt PDF exported to $path');
+      }
+    } catch (error) {
+      if (context.mounted) showFailure(context, error);
+    }
   }
 
   Future<void> _exportInventory(BuildContext context, AppState state) async {

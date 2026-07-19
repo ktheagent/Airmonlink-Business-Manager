@@ -1,20 +1,26 @@
 name: airmonlink_business_manager
 description: Offline-first Windows POS, inventory, customer, supplier, expense and reporting software.
 publish_to: none
-version: 1.0.1+4
+version: 1.1.0+5
 
 environment:
   sdk: '>=3.12.0 <4.0.0'
 
 dependencies:
+  crypto: ^3.0.7
+  device_info_plus: ^13.2.0
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^10.3.1
+  http: ^1.6.0
   intl: 0.20.2
+  package_info_plus: ^10.2.1
   path: 1.9.1
   path_provider: 2.1.6
   pdf: 3.13.0
   printing: 5.15.0
   sqflite_common_ffi: 2.4.2
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
@@ -23,3 +29,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/branding/

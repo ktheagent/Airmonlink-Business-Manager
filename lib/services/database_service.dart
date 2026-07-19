@@ -346,6 +346,50 @@ class DatabaseService {
     return rows.map(SaleRecord.fromMap).toList(growable: false);
   }
 
+  Future<List<SaleItem>> getSaleItems(int saleId) async {
+    final db = await database;
+    final rows = await db.query(
+      'sale_items',
+      where: 'sale_id = ?',
+      whereArgs: [saleId],
+      orderBy: 'id ASC',
+    );
+    return rows
+        .map((row) {
+          return SaleItem(
+            productId: row['product_id'] as int?,
+            productName: row['product_name'] as String,
+            quantity: (row['quantity'] as num).toDouble(),
+            unitPrice: (row['unit_price'] as num).toDouble(),
+            costPrice: (row['cost_price'] as num).toDouble(),
+          );
+        })
+        .toList(growable: false);
+  }
+
+  Future<BusinessContact?> getContactById(int id) async {
+    final db = await database;
+    final customerRows = await db.query(
+      'customers',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+    if (customerRows.isNotEmpty) {
+      return BusinessContact.fromMap(customerRows.first, ContactType.customer);
+    }
+    final supplierRows = await db.query(
+      'suppliers',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+    if (supplierRows.isNotEmpty) {
+      return BusinessContact.fromMap(supplierRows.first, ContactType.supplier);
+    }
+    return null;
+  }
+
   Future<String> createSale(SaleDraft draft) async {
     if (draft.items.isEmpty) throw ArgumentError('The sale has no items.');
     if (draft.paymentMethod == 'Credit' && draft.customerId == null) {

@@ -109,10 +109,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   'Create a timestamped copy of the complete local database in your Documents folder. Keep additional copies on an external drive or secure cloud storage.',
                 ),
                 const SizedBox(height: 16),
-                FilledButton.tonalIcon(
-                  onPressed: () => _backup(context, state),
-                  icon: const Icon(Icons.backup_outlined),
-                  label: const Text('Create database backup'),
+                Tooltip(
+                  message: 'Create a database backup',
+                  child: FilledButton.tonalIcon(
+                    onPressed: () => _backup(context, state),
+                    icon: const Icon(Icons.backup_outlined),
+                    label: const Text('Create database backup'),
+                  ),
                 ),
               ],
             ),
@@ -136,10 +139,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   'Preview and print a high-contrast test page before using receipts or reports. The preview must show text and two test bars before you send it to the printer.',
                 ),
                 const SizedBox(height: 16),
-                FilledButton.tonalIcon(
-                  onPressed: () => _printerTest(context, state),
-                  icon: const Icon(Icons.print_outlined),
-                  label: const Text('Open printer test'),
+                Tooltip(
+                  message: 'Open printer test preview',
+                  child: FilledButton.tonalIcon(
+                    onPressed: () => _printerTest(context, state),
+                    icon: const Icon(Icons.print_outlined),
+                    label: const Text('Open printer test'),
+                  ),
                 ),
               ],
             ),

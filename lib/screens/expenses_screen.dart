@@ -27,10 +27,13 @@ class ExpensesScreen extends StatelessWidget {
             subtitle:
                 'Record operating costs for more realistic profit reporting.',
             actions: [
-              FilledButton.icon(
-                onPressed: () => _addExpense(context, state),
-                icon: const Icon(Icons.add),
-                label: const Text('Record expense'),
+              Tooltip(
+                message: 'Record a new expense',
+                child: FilledButton.icon(
+                  onPressed: () => _addExpense(context, state),
+                  icon: const Icon(Icons.add),
+                  label: const Text('Record expense'),
+                ),
               ),
             ],
           ),

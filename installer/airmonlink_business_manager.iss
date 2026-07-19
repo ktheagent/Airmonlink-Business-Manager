@@ -1,7 +1,8 @@
 #define MyAppName "Airmonlink Business Manager"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "Airmonlink"
 #define MyAppExeName "airmonlink_business_manager.exe"
+#define MyAppIcon "..\assets\branding\airmonlink_business_manager_icon.png"
 
 [Setup]
 AppId={{8B018058-1F0E-4DCF-8CB8-E3DC08714E4F}
@@ -12,13 +13,15 @@ DefaultDirName={autopf}\Airmonlink Business Manager
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=..\dist
-OutputBaseFilename=Airmonlink-Business-Manager-1.0.1-build4-Setup
+OutputBaseFilename=Airmonlink-Business-Manager-1.1.0-build5-Setup
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=lowest
+LicenseFile=..\installer\Airmonlink-Business-Manager-EULA.rtf
+SetupIconFile={#MyAppIcon}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 
 [Files]
