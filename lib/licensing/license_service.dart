@@ -15,10 +15,14 @@ class LicenseService {
     LicenseApiClient? apiClient,
     DeviceIdentityService? deviceIdentityService,
     this.packageInfo,
-  }) : _storage = storage ?? LicenseStorage(),
+    PackageInfo? packageInfo,
+  }) : _packageInfo = packageInfo,
+       _storage = storage ?? LicenseStorage(),
        _apiClient = apiClient ?? LicenseApiClient(),
        _deviceIdentityService =
            deviceIdentityService ?? DeviceIdentityService();
+
+  final PackageInfo? _packageInfo;
 
   final LicenseStorage _storage;
   final LicenseApiClient _apiClient;
