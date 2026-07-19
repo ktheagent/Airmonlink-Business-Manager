@@ -15,15 +15,10 @@ class LicenseService {
     LicenseApiClient? apiClient,
     DeviceIdentityService? deviceIdentityService,
     this.packageInfo,
-    PackageInfo? packageInfo,
-  }) : _packageInfo = packageInfo,
-       _storage = storage ?? LicenseStorage(),
+  }) : _storage = storage ?? LicenseStorage(),
        _apiClient = apiClient ?? LicenseApiClient(),
        _deviceIdentityService =
            deviceIdentityService ?? DeviceIdentityService();
-
-  final PackageInfo? _packageInfo;
-
   final LicenseStorage _storage;
   final LicenseApiClient _apiClient;
   final DeviceIdentityService _deviceIdentityService;
@@ -90,12 +85,12 @@ class LicenseService {
     required String licenseKey,
     required String businessName,
   }) async {
-    final packageInfo = _packageInfo ?? await PackageInfo.fromPlatform();
+    final appPackageInfo = this.packageInfo ?? await PackageInfo.fromPlatform();
     final deviceId = await _deviceIdentityService.getDeviceIdentifier();
     final response = await _apiClient.activate(
       licenseKey: licenseKey,
       deviceIdentifier: deviceId,
-      appVersion: packageInfo.version,
+      appVersion: appPackageInfo.version,
       platform: Platform.operatingSystem,
       businessName: businessName,
     );
