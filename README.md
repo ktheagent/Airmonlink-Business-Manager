@@ -4,9 +4,9 @@ Airmonlink Business Manager is an offline-first Windows point-of-sale and small-
 
 ## Release identity
 
-- Version: `1.0.0+3`
+- Version: `1.0.1+4`
 - Reproducible CI toolchain: Flutter `3.44.0` / Dart `3.12`
-- Canonical source package: `Airmonlink-Business-Manager-Full-Source-1.0.0-build3.zip`
+- Canonical source package: `Airmonlink-Business-Manager-Full-Source-1.0.1-build4.zip`
 - Flutter organization namespace: `com.airmonlink`
 - Executable name: `airmonlink_business_manager.exe`
 
@@ -69,7 +69,7 @@ Do not distribute only the `.exe`; distribute the complete Release folder or the
 2. Upload this project to the repository.
 3. Open **Actions**.
 4. Run **Validate and Build Windows Release**.
-5. Download the artifact named `Airmonlink-Business-Manager-1.0.0-build3-Windows`.
+5. Download the artifact named `Airmonlink-Business-Manager-1.0.1-build4-Windows`.
 
 The workflow installs dependencies, formats the source, performs static analysis and tests, compiles the Windows release, and creates both portable ZIP and Inno Setup packages.
 

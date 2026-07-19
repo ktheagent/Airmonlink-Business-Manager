@@ -50,8 +50,9 @@ void main() {
 
     expect(invoice, startsWith('ABM-'));
 
-    final updatedProduct = (await database.getProducts())
-        .firstWhere((item) => item.id == product.id);
+    final updatedProduct = (await database.getProducts()).firstWhere(
+      (item) => item.id == product.id,
+    );
     expect(updatedProduct.stockQty, initialStock - 2);
 
     final customer = (await database.getContacts(ContactType.customer)).single;
@@ -63,8 +64,9 @@ void main() {
     expect(metrics.monthGrossProfit, expectedProfit);
 
     await database.recordContactPayment(customer, 1);
-    final paidCustomer =
-        (await database.getContacts(ContactType.customer)).single;
+    final paidCustomer = (await database.getContacts(
+      ContactType.customer,
+    )).single;
     expect(paidCustomer.balance, expectedTotal - 1);
   });
 
@@ -92,8 +94,9 @@ void main() {
       throwsStateError,
     );
 
-    final unchanged = (await database.getProducts())
-        .firstWhere((item) => item.id == product.id);
+    final unchanged = (await database.getProducts()).firstWhere(
+      (item) => item.id == product.id,
+    );
     expect(unchanged.stockQty, product.stockQty);
     expect((await database.getSales()).length, initialSales.length);
   });

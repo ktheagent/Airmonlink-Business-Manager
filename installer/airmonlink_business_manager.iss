@@ -1,5 +1,5 @@
 #define MyAppName "Airmonlink Business Manager"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "Airmonlink"
 #define MyAppExeName "airmonlink_business_manager.exe"
 
@@ -12,7 +12,7 @@ DefaultDirName={autopf}\Airmonlink Business Manager
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=..\dist
-OutputBaseFilename=Airmonlink-Business-Manager-1.0.0-build3-Setup
+OutputBaseFilename=Airmonlink-Business-Manager-1.0.1-build4-Setup
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern

@@ -1,7 +1,7 @@
 # Source validation report
 
 **Product:** Airmonlink Business Manager  
-**Release:** 1.0.0+3 (build 3)  
+**Release:** 1.0.1+4 (build 3)  
 **Validation date:** 2026-07-19
 
 ## Printing correction delivered

@@ -59,8 +59,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Text(
                   'Business profile',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 TextField(
@@ -101,8 +101,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Text(
                   'Database backup',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 const Text(
@@ -128,8 +128,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Text(
                   'Printer test',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 const Text(

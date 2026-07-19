@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pdf/pdf.dart';
@@ -15,8 +13,8 @@ import '../services/report_service.dart';
 
 class AppState extends ChangeNotifier {
   AppState({DatabaseService? databaseService})
-      : _database = databaseService ?? DatabaseService.instance,
-        _reports = ReportService() {
+    : _database = databaseService ?? DatabaseService.instance,
+      _reports = ReportService() {
     _backups = BackupService(_database);
   }
 
@@ -34,7 +32,8 @@ class AppState extends ChangeNotifier {
   List<SaleRecord> sales = const [];
   Map<String, String> settings = const {};
 
-  String get businessName => settings['business_name']?.trim().isNotEmpty == true
+  String get businessName =>
+      settings['business_name']?.trim().isNotEmpty == true
       ? settings['business_name']!
       : 'My Business';
 
@@ -170,11 +169,11 @@ class AppState extends ChangeNotifier {
   }
 
   Future<String> exportSummaryPdf() => _reports.exportSummaryPdf(
-        businessName: businessName,
-        metrics: metrics,
-        sales: sales,
-        expenses: expenses,
-      );
+    businessName: businessName,
+    metrics: metrics,
+    sales: sales,
+    expenses: expenses,
+  );
 
   Future<String> exportReceiptPdf({
     required String invoiceNo,
@@ -196,10 +195,10 @@ class AppState extends ChangeNotifier {
 
 class AppStateScope extends InheritedNotifier<AppState> {
   const AppStateScope({
-    required AppState notifier,
-    required Widget child,
-    Key? key,
-  }) : super(key: key, notifier: notifier, child: child);
+    required AppState super.notifier,
+    required super.child,
+    super.key,
+  });
 
   static AppState of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<AppStateScope>();

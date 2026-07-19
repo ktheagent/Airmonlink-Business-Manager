@@ -12,7 +12,10 @@ class ExpensesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = AppStateScope.of(context);
-    final total = state.expenses.fold<double>(0, (sum, expense) => sum + expense.amount);
+    final total = state.expenses.fold<double>(
+      0,
+      (sum, expense) => sum + expense.amount,
+    );
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -21,7 +24,8 @@ class ExpensesScreen extends StatelessWidget {
         children: [
           PageHeader(
             title: 'Expenses',
-            subtitle: 'Record operating costs for more realistic profit reporting.',
+            subtitle:
+                'Record operating costs for more realistic profit reporting.',
             actions: [
               FilledButton.icon(
                 onPressed: () => _addExpense(context, state),
@@ -43,8 +47,8 @@ class ExpensesScreen extends StatelessWidget {
                   Text(
                     AppFormatters.money(total),
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w800,
-                        ),
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ],
               ),
@@ -54,7 +58,9 @@ class ExpensesScreen extends StatelessWidget {
           Expanded(
             child: Card(
               child: state.expenses.isEmpty
-                  ? const Center(child: Text('No expenses have been recorded yet.'))
+                  ? const Center(
+                      child: Text('No expenses have been recorded yet.'),
+                    )
                   : SingleChildScrollView(
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -80,8 +86,14 @@ class ExpensesScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                DataCell(Text(AppFormatters.dateTime(expense.createdAt))),
-                                DataCell(Text(AppFormatters.money(expense.amount))),
+                                DataCell(
+                                  Text(
+                                    AppFormatters.dateTime(expense.createdAt),
+                                  ),
+                                ),
+                                DataCell(
+                                  Text(AppFormatters.money(expense.amount)),
+                                ),
                               ],
                             );
                           }).toList(),
@@ -116,39 +128,52 @@ class ExpensesScreen extends StatelessWidget {
                 TextFormField(
                   controller: title,
                   decoration: const InputDecoration(labelText: 'Description'),
-                  validator: (value) => value == null || value.trim().isEmpty ? 'Required' : null,
+                  validator: (value) =>
+                      value == null || value.trim().isEmpty ? 'Required' : null,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: category,
                   decoration: const InputDecoration(labelText: 'Category'),
-                  validator: (value) => value == null || value.trim().isEmpty ? 'Required' : null,
+                  validator: (value) =>
+                      value == null || value.trim().isEmpty ? 'Required' : null,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: amount,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
                   decoration: const InputDecoration(labelText: 'Amount'),
                   validator: (value) {
                     final parsed = double.tryParse(value ?? '');
-                    return parsed == null || parsed <= 0 ? 'Enter an amount above zero' : null;
+                    return parsed == null || parsed <= 0
+                        ? 'Enter an amount above zero'
+                        : null;
                   },
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: note,
                   maxLines: 3,
-                  decoration: const InputDecoration(labelText: 'Note (optional)'),
+                  decoration: const InputDecoration(
+                    labelText: 'Note (optional)',
+                  ),
                 ),
               ],
             ),
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
             onPressed: () {
-              if (formKey.currentState!.validate()) Navigator.pop(dialogContext, true);
+              if (formKey.currentState!.validate()) {
+                Navigator.pop(dialogContext, true);
+              }
             },
             child: const Text('Save expense'),
           ),
@@ -156,7 +181,9 @@ class ExpensesScreen extends StatelessWidget {
       ),
     );
 
-    if (submit != true || !context.mounted) return;
+    if (submit != true || !context.mounted) {
+      return;
+    }
     try {
       await state.addExpense(
         Expense(
@@ -168,9 +195,13 @@ class ExpensesScreen extends StatelessWidget {
           createdAt: DateTime.now(),
         ),
       );
-      if (context.mounted) showSuccess(context, 'Expense recorded.');
+      if (context.mounted) {
+        showSuccess(context, 'Expense recorded.');
+      }
     } catch (error) {
-      if (context.mounted) showFailure(context, error);
+      if (context.mounted) {
+        showFailure(context, error);
+      }
     }
   }
 }

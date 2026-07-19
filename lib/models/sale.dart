@@ -39,15 +39,15 @@ class SaleRecord {
   final DateTime createdAt;
 
   factory SaleRecord.fromMap(Map<String, Object?> map) => SaleRecord(
-        id: map['id'] as int?,
-        invoiceNo: map['invoice_no'] as String,
-        subtotal: (map['subtotal'] as num).toDouble(),
-        discount: (map['discount'] as num).toDouble(),
-        total: (map['total'] as num).toDouble(),
-        paymentMethod: map['payment_method'] as String,
-        customerId: map['customer_id'] as int?,
-        createdAt: DateTime.parse(map['created_at'] as String),
-      );
+    id: map['id'] as int?,
+    invoiceNo: map['invoice_no'] as String,
+    subtotal: (map['subtotal'] as num).toDouble(),
+    discount: (map['discount'] as num).toDouble(),
+    total: (map['total'] as num).toDouble(),
+    paymentMethod: map['payment_method'] as String,
+    customerId: map['customer_id'] as int?,
+    createdAt: DateTime.parse(map['created_at'] as String),
+  );
 }
 
 class SaleDraft {
@@ -64,5 +64,6 @@ class SaleDraft {
   final int? customerId;
 
   double get subtotal => items.fold(0, (sum, item) => sum + item.total);
-  double get total => (subtotal - discount).clamp(0, double.infinity).toDouble();
+  double get total =>
+      (subtotal - discount).clamp(0, double.infinity).toDouble();
 }

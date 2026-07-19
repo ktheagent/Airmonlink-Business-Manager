@@ -10,7 +10,7 @@ if (-not $releaseDirectory) {
 
 $outputDirectory = 'dist'
 New-Item -ItemType Directory -Path $outputDirectory -Force | Out-Null
-$zipPath = Join-Path $outputDirectory 'Airmonlink-Business-Manager-1.0.0-build3-Windows-Portable.zip'
+$zipPath = Join-Path $outputDirectory 'Airmonlink-Business-Manager-1.0.1-build4-Windows-Portable.zip'
 if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
 Compress-Archive -Path (Join-Path $releaseDirectory.FullName '*') -DestinationPath $zipPath -CompressionLevel Optimal
 Write-Host "Portable package created: $zipPath"

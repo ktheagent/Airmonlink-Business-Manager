@@ -16,20 +16,20 @@ class Expense {
   final DateTime createdAt;
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'title': title,
-        'category': category,
-        'amount': amount,
-        'note': note,
-        'created_at': createdAt.toIso8601String(),
-      };
+    'id': id,
+    'title': title,
+    'category': category,
+    'amount': amount,
+    'note': note,
+    'created_at': createdAt.toIso8601String(),
+  };
 
   factory Expense.fromMap(Map<String, Object?> map) => Expense(
-        id: map['id'] as int?,
-        title: map['title'] as String,
-        category: map['category'] as String,
-        amount: (map['amount'] as num).toDouble(),
-        note: map['note'] as String? ?? '',
-        createdAt: DateTime.parse(map['created_at'] as String),
-      );
+    id: map['id'] as int?,
+    title: map['title'] as String,
+    category: map['category'] as String,
+    amount: (map['amount'] as num).toDouble(),
+    note: map['note'] as String? ?? '',
+    createdAt: DateTime.parse(map['created_at'] as String),
+  );
 }

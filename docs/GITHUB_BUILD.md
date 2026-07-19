@@ -12,7 +12,7 @@ Example commands after replacing the repository address:
 ```bash
 git init
 git add .
-git commit -m "Release Airmonlink Business Manager 1.0.0+3"
+git commit -m "Release Airmonlink Business Manager 1.0.1+4"
 git branch -M main
 git remote add origin YOUR_REPOSITORY_ADDRESS
 git push -u origin main
@@ -24,13 +24,13 @@ git push -u origin main
 2. Select **Validate and Build Windows Release**.
 3. Choose **Run workflow** on the `main` branch.
 4. Open the completed run.
-5. Download `Airmonlink-Business-Manager-1.0.0-build3-Windows` from **Artifacts**.
+5. Download `Airmonlink-Business-Manager-1.0.1-build4-Windows` from **Artifacts**.
 
 The downloaded artifact should contain:
 
 ```text
-Airmonlink-Business-Manager-1.0.0-build3-Windows-Portable.zip
-Airmonlink-Business-Manager-1.0.0-build3-Setup.exe
+Airmonlink-Business-Manager-1.0.1-build4-Windows-Portable.zip
+Airmonlink-Business-Manager-1.0.1-build4-Setup.exe
 ```
 
 ## Required successful gates

@@ -22,18 +22,15 @@ class BusinessContact {
   String get table => type == ContactType.customer ? 'customers' : 'suppliers';
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': name,
-        'phone': phone,
-        'email': email,
-        'balance': balance,
-        'created_at': createdAt.toIso8601String(),
-      };
+    'id': id,
+    'name': name,
+    'phone': phone,
+    'email': email,
+    'balance': balance,
+    'created_at': createdAt.toIso8601String(),
+  };
 
-  factory BusinessContact.fromMap(
-    Map<String, Object?> map,
-    ContactType type,
-  ) =>
+  factory BusinessContact.fromMap(Map<String, Object?> map, ContactType type) =>
       BusinessContact(
         id: map['id'] as int?,
         type: type,

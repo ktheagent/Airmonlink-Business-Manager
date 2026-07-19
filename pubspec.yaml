@@ -1,7 +1,7 @@
 name: airmonlink_business_manager
 description: Offline-first Windows POS, inventory, customer, supplier, expense and reporting software.
 publish_to: none
-version: 1.0.0+3
+version: 1.0.1+4
 
 environment:
   sdk: '>=3.12.0 <4.0.0'

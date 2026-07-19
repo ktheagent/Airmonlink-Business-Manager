@@ -40,7 +40,11 @@ class ContactsScreen extends StatelessWidget {
           Expanded(
             child: Card(
               child: contacts.isEmpty
-                  ? Center(child: Text('No ${title.toLowerCase()} have been added yet.'))
+                  ? Center(
+                      child: Text(
+                        'No ${title.toLowerCase()} have been added yet.',
+                      ),
+                    )
                   : SingleChildScrollView(
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -57,10 +61,22 @@ class ContactsScreen extends StatelessWidget {
                             return DataRow(
                               cells: [
                                 DataCell(Text(contact.name)),
-                                DataCell(Text(contact.phone.isEmpty ? '—' : contact.phone)),
-                                DataCell(Text(contact.email.isEmpty ? '—' : contact.email)),
-                                DataCell(Text(AppFormatters.money(contact.balance))),
-                                DataCell(Text(AppFormatters.date(contact.createdAt))),
+                                DataCell(
+                                  Text(
+                                    contact.phone.isEmpty ? '—' : contact.phone,
+                                  ),
+                                ),
+                                DataCell(
+                                  Text(
+                                    contact.email.isEmpty ? '—' : contact.email,
+                                  ),
+                                ),
+                                DataCell(
+                                  Text(AppFormatters.money(contact.balance)),
+                                ),
+                                DataCell(
+                                  Text(AppFormatters.date(contact.createdAt)),
+                                ),
                                 DataCell(
                                   contact.balance <= 0
                                       ? const Text('—')
@@ -111,15 +127,22 @@ class ContactsScreen extends StatelessWidget {
             child: TextFormField(
               controller: amount,
               autofocus: true,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
               decoration: InputDecoration(
                 labelText: 'Payment amount',
-                helperText: 'Outstanding: ${AppFormatters.money(contact.balance)}',
+                helperText:
+                    'Outstanding: ${AppFormatters.money(contact.balance)}',
               ),
               validator: (value) {
                 final parsed = double.tryParse(value ?? '');
-                if (parsed == null || parsed <= 0) return 'Enter a valid amount';
-                if (parsed > contact.balance) return 'Payment exceeds the balance';
+                if (parsed == null || parsed <= 0) {
+                  return 'Enter a valid amount';
+                }
+                if (parsed > contact.balance) {
+                  return 'Payment exceeds the balance';
+                }
                 return null;
               },
             ),
@@ -142,15 +165,21 @@ class ContactsScreen extends StatelessWidget {
       ),
     );
 
-    if (submit != true || !context.mounted) return;
+    if (submit != true || !context.mounted) {
+      return;
+    }
     try {
       await state.recordContactPayment(
         contact,
         double.parse(amount.text.trim()),
       );
-      if (context.mounted) showSuccess(context, 'Payment recorded successfully.');
+      if (context.mounted) {
+        showSuccess(context, 'Payment recorded successfully.');
+      }
     } catch (error) {
-      if (context.mounted) showFailure(context, error);
+      if (context.mounted) {
+        showFailure(context, error);
+      }
     }
   }
 
@@ -164,7 +193,9 @@ class ContactsScreen extends StatelessWidget {
     final submit = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text(type == ContactType.customer ? 'Add customer' : 'Add supplier'),
+        title: Text(
+          type == ContactType.customer ? 'Add customer' : 'Add supplier',
+        ),
         content: SizedBox(
           width: 440,
           child: Form(
@@ -175,7 +206,8 @@ class ContactsScreen extends StatelessWidget {
                 TextFormField(
                   controller: name,
                   decoration: const InputDecoration(labelText: 'Name'),
-                  validator: (value) => value == null || value.trim().isEmpty ? 'Required' : null,
+                  validator: (value) =>
+                      value == null || value.trim().isEmpty ? 'Required' : null,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
@@ -190,7 +222,9 @@ class ContactsScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: balance,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
                   decoration: InputDecoration(
                     labelText: type == ContactType.customer
                         ? 'Opening amount owed'
@@ -198,7 +232,9 @@ class ContactsScreen extends StatelessWidget {
                   ),
                   validator: (value) {
                     final parsed = double.tryParse(value ?? '');
-                    return parsed == null || parsed < 0 ? 'Enter a valid amount' : null;
+                    return parsed == null || parsed < 0
+                        ? 'Enter a valid amount'
+                        : null;
                   },
                 ),
               ],
@@ -206,10 +242,15 @@ class ContactsScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
             onPressed: () {
-              if (formKey.currentState!.validate()) Navigator.pop(dialogContext, true);
+              if (formKey.currentState!.validate()) {
+                Navigator.pop(dialogContext, true);
+              }
             },
             child: const Text('Save'),
           ),
@@ -217,7 +258,9 @@ class ContactsScreen extends StatelessWidget {
       ),
     );
 
-    if (submit != true || !context.mounted) return;
+    if (submit != true || !context.mounted) {
+      return;
+    }
     try {
       await state.addContact(
         BusinessContact(
@@ -230,9 +273,13 @@ class ContactsScreen extends StatelessWidget {
           createdAt: DateTime.now(),
         ),
       );
-      if (context.mounted) showSuccess(context, 'Contact saved successfully.');
+      if (context.mounted) {
+        showSuccess(context, 'Contact saved successfully.');
+      }
     } catch (error) {
-      if (context.mounted) showFailure(context, error);
+      if (context.mounted) {
+        showFailure(context, error);
+      }
     }
   }
 }

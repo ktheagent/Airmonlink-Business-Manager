@@ -20,16 +20,19 @@ class _PosScreenState extends State<PosScreen> {
   final Map<int, _CartLine> _cart = {};
   String _query = '';
 
-  double get _subtotal =>
-      _cart.values.fold(0, (sum, line) => sum + line.total);
+  double get _subtotal => _cart.values.fold(0, (sum, line) => sum + line.total);
 
   @override
   Widget build(BuildContext context) {
     final state = AppStateScope.of(context);
     final query = _query.trim().toLowerCase();
     final products = state.products.where((product) {
-      if (product.stockQty <= 0) return false;
-      if (query.isEmpty) return true;
+      if (product.stockQty <= 0) {
+        return false;
+      }
+      if (query.isEmpty) {
+        return true;
+      }
       return product.name.toLowerCase().contains(query) ||
           product.sku.toLowerCase().contains(query) ||
           product.barcode.toLowerCase().contains(query) ||
@@ -42,7 +45,8 @@ class _PosScreenState extends State<PosScreen> {
         children: [
           const PageHeader(
             title: 'Point of sale',
-            subtitle: 'Select products, review quantities and complete payment.',
+            subtitle:
+                'Select products, review quantities and complete payment.',
           ),
           const SizedBox(height: 18),
           Expanded(
@@ -93,22 +97,25 @@ class _PosScreenState extends State<PosScreen> {
             const SizedBox(height: 14),
             Expanded(
               child: products.isEmpty
-                  ? const Center(child: Text('No available products match this search.'))
+                  ? const Center(
+                      child: Text('No available products match this search.'),
+                    )
                   : LayoutBuilder(
                       builder: (context, constraints) {
                         final columns = constraints.maxWidth >= 900
                             ? 4
                             : constraints.maxWidth >= 620
-                                ? 3
-                                : 2;
+                            ? 3
+                            : 2;
                         return GridView.builder(
                           itemCount: products.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: columns,
-                            mainAxisSpacing: 12,
-                            crossAxisSpacing: 12,
-                            childAspectRatio: 1.35,
-                          ),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: columns,
+                                mainAxisSpacing: 12,
+                                crossAxisSpacing: 12,
+                                childAspectRatio: 1.35,
+                              ),
                           itemBuilder: (context, index) {
                             final product = products[index];
                             final inCart = _cart[product.id]?.quantity ?? 0;
@@ -117,13 +124,16 @@ class _PosScreenState extends State<PosScreen> {
                               onTap: () => _addProduct(product),
                               child: Ink(
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: const Color(0xFFDCE4EF)),
+                                  border: Border.all(
+                                    color: const Color(0xFFDCE4EF),
+                                  ),
                                   borderRadius: BorderRadius.circular(14),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(13),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -132,11 +142,17 @@ class _PosScreenState extends State<PosScreen> {
                                               product.category,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context).textTheme.labelMedium,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.labelMedium,
                                             ),
                                           ),
                                           if (inCart > 0)
-                                            Badge(label: Text(inCart.toStringAsFixed(0))),
+                                            Badge(
+                                              label: Text(
+                                                inCart.toStringAsFixed(0),
+                                              ),
+                                            ),
                                         ],
                                       ),
                                       const Spacer(),
@@ -144,21 +160,33 @@ class _PosScreenState extends State<PosScreen> {
                                         product.name,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall
+                                            ?.copyWith(
                                               fontWeight: FontWeight.w700,
                                             ),
                                       ),
                                       const SizedBox(height: 6),
                                       Text(
-                                        AppFormatters.money(product.sellingPrice),
-                                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                              color: Theme.of(context).colorScheme.primary,
+                                        AppFormatters.money(
+                                          product.sellingPrice,
+                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.primary,
                                               fontWeight: FontWeight.w700,
                                             ),
                                       ),
                                       Text(
                                         '${product.stockQty.toStringAsFixed(1)} available',
-                                        style: Theme.of(context).textTheme.bodySmall,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodySmall,
                                       ),
                                     ],
                                   ),
@@ -188,8 +216,8 @@ class _PosScreenState extends State<PosScreen> {
                 Text(
                   'Current sale',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const Spacer(),
                 TextButton.icon(
@@ -214,7 +242,7 @@ class _PosScreenState extends State<PosScreen> {
                     )
                   : ListView.separated(
                       itemCount: _cart.length,
-                      separatorBuilder: (_, __) => const Divider(height: 18),
+                      separatorBuilder: (_, _) => const Divider(height: 18),
                       itemBuilder: (context, index) {
                         final line = _cart.values.elementAt(index);
                         return Row(
@@ -226,30 +254,47 @@ class _PosScreenState extends State<PosScreen> {
                                 children: [
                                   Text(
                                     line.product.name,
-                                    style: const TextStyle(fontWeight: FontWeight.w600),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   const SizedBox(height: 3),
                                   Text(
                                     '${AppFormatters.money(line.product.sellingPrice)} × ${line.quantity.toStringAsFixed(0)}',
-                                    style: Theme.of(context).textTheme.bodySmall,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall,
                                   ),
                                   const SizedBox(height: 8),
                                   Row(
                                     children: [
                                       IconButton.outlined(
                                         visualDensity: VisualDensity.compact,
-                                        onPressed: () => _changeQuantity(line.product, -1),
-                                        icon: const Icon(Icons.remove, size: 17),
+                                        onPressed: () =>
+                                            _changeQuantity(line.product, -1),
+                                        icon: const Icon(
+                                          Icons.remove,
+                                          size: 17,
+                                        ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                                        child: Text(line.quantity.toStringAsFixed(0)),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                        ),
+                                        child: Text(
+                                          line.quantity.toStringAsFixed(0),
+                                        ),
                                       ),
                                       IconButton.outlined(
                                         visualDensity: VisualDensity.compact,
-                                        onPressed: line.quantity >= line.product.stockQty
+                                        onPressed:
+                                            line.quantity >=
+                                                line.product.stockQty
                                             ? null
-                                            : () => _changeQuantity(line.product, 1),
+                                            : () => _changeQuantity(
+                                                line.product,
+                                                1,
+                                              ),
                                         icon: const Icon(Icons.add, size: 17),
                                       ),
                                     ],
@@ -262,11 +307,15 @@ class _PosScreenState extends State<PosScreen> {
                               children: [
                                 Text(
                                   AppFormatters.money(line.total),
-                                  style: const TextStyle(fontWeight: FontWeight.w700),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                                 IconButton(
                                   tooltip: 'Remove',
-                                  onPressed: () => setState(() => _cart.remove(line.product.id)),
+                                  onPressed: () => setState(
+                                    () => _cart.remove(line.product.id),
+                                  ),
                                   icon: const Icon(Icons.close),
                                 ),
                               ],
@@ -283,9 +332,9 @@ class _PosScreenState extends State<PosScreen> {
                 const Spacer(),
                 Text(
                   AppFormatters.money(_subtotal),
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w800,
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
                 ),
               ],
             ),
@@ -306,7 +355,9 @@ class _PosScreenState extends State<PosScreen> {
 
   void _addProduct(Product product) {
     final id = product.id;
-    if (id == null) return;
+    if (id == null) {
+      return;
+    }
     final existing = _cart[id];
     final quantity = existing?.quantity ?? 0;
     if (quantity >= product.stockQty) {
@@ -320,9 +371,13 @@ class _PosScreenState extends State<PosScreen> {
 
   void _changeQuantity(Product product, double change) {
     final id = product.id;
-    if (id == null) return;
+    if (id == null) {
+      return;
+    }
     final current = _cart[id];
-    if (current == null) return;
+    if (current == null) {
+      return;
+    }
     final next = current.quantity + change;
     setState(() {
       if (next <= 0) {
@@ -353,16 +408,29 @@ class _PosScreenState extends State<PosScreen> {
                 children: [
                   DropdownButtonFormField<String>(
                     initialValue: paymentMethod,
-                    decoration: const InputDecoration(labelText: 'Payment method'),
+                    decoration: const InputDecoration(
+                      labelText: 'Payment method',
+                    ),
                     items: const [
                       DropdownMenuItem(value: 'Cash', child: Text('Cash')),
-                      DropdownMenuItem(value: 'Mobile Money', child: Text('Mobile Money')),
+                      DropdownMenuItem(
+                        value: 'Mobile Money',
+                        child: Text('Mobile Money'),
+                      ),
                       DropdownMenuItem(value: 'Card', child: Text('Card')),
-                      DropdownMenuItem(value: 'Bank Transfer', child: Text('Bank Transfer')),
-                      DropdownMenuItem(value: 'Credit', child: Text('Credit sale')),
+                      DropdownMenuItem(
+                        value: 'Bank Transfer',
+                        child: Text('Bank Transfer'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'Credit',
+                        child: Text('Credit sale'),
+                      ),
                     ],
                     onChanged: (value) {
-                      if (value != null) setDialogState(() => paymentMethod = value);
+                      if (value != null) {
+                        setDialogState(() => paymentMethod = value);
+                      }
                     },
                   ),
                   const SizedBox(height: 12),
@@ -377,7 +445,10 @@ class _PosScreenState extends State<PosScreen> {
                           : null,
                     ),
                     items: [
-                      const DropdownMenuItem<int?>(value: null, child: Text('Walk-in customer')),
+                      const DropdownMenuItem<int?>(
+                        value: null,
+                        child: Text('Walk-in customer'),
+                      ),
                       ...state.customers.map(
                         (customer) => DropdownMenuItem<int?>(
                           value: customer.id,
@@ -385,12 +456,15 @@ class _PosScreenState extends State<PosScreen> {
                         ),
                       ),
                     ],
-                    onChanged: (value) => setDialogState(() => customerId = value),
+                    onChanged: (value) =>
+                        setDialogState(() => customerId = value),
                   ),
                   const SizedBox(height: 12),
                   TextField(
                     controller: discountController,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     decoration: const InputDecoration(labelText: 'Discount'),
                     onChanged: (_) => setDialogState(() {}),
                   ),
@@ -407,9 +481,8 @@ class _PosScreenState extends State<PosScreen> {
                         const Spacer(),
                         Text(
                           AppFormatters.money(payable),
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.w800,
-                              ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.w800),
                         ),
                       ],
                     ),
@@ -418,24 +491,31 @@ class _PosScreenState extends State<PosScreen> {
               ),
             ),
             actions: [
-              TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text('Cancel')),
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: const Text('Cancel'),
+              ),
               FilledButton(
                 onPressed: paymentMethod == 'Credit' && customerId == null
                     ? null
                     : () {
-                  final discountValue = double.tryParse(discountController.text.trim());
-                  if (discountValue == null || discountValue < 0 || discountValue > _subtotal) {
-                    return;
-                  }
-                  Navigator.pop(
-                    dialogContext,
-                    _CheckoutResult(
-                      discount: discountValue,
-                      paymentMethod: paymentMethod,
-                      customerId: customerId,
-                    ),
-                  );
-                },
+                        final discountValue = double.tryParse(
+                          discountController.text.trim(),
+                        );
+                        if (discountValue == null ||
+                            discountValue < 0 ||
+                            discountValue > _subtotal) {
+                          return;
+                        }
+                        Navigator.pop(
+                          dialogContext,
+                          _CheckoutResult(
+                            discount: discountValue,
+                            paymentMethod: paymentMethod,
+                            customerId: customerId,
+                          ),
+                        );
+                      },
                 child: const Text('Confirm payment'),
               ),
             ],
@@ -444,7 +524,9 @@ class _PosScreenState extends State<PosScreen> {
       ),
     );
 
-    if (checkout == null || !context.mounted) return;
+    if (checkout == null || !context.mounted) {
+      return;
+    }
 
     final draft = SaleDraft(
       items: _cart.values
@@ -467,7 +549,9 @@ class _PosScreenState extends State<PosScreen> {
       final soldAt = DateTime.now();
       final customerName = _customerName(state, draft.customerId);
       final invoice = await state.completeSale(draft);
-      if (!context.mounted) return;
+      if (!context.mounted) {
+        return;
+      }
       setState(_cart.clear);
       showSuccess(context, 'Sale completed. Invoice: $invoice');
       await _showReceiptPreview(
@@ -479,14 +563,20 @@ class _PosScreenState extends State<PosScreen> {
         customerName: customerName,
       );
     } catch (error) {
-      if (context.mounted) showFailure(context, error);
+      if (context.mounted) {
+        showFailure(context, error);
+      }
     }
   }
 
   String? _customerName(AppState state, int? customerId) {
-    if (customerId == null) return null;
+    if (customerId == null) {
+      return null;
+    }
     for (final customer in state.customers) {
-      if (customer.id == customerId) return customer.name;
+      if (customer.id == customerId) {
+        return customer.name;
+      }
     }
     return null;
   }

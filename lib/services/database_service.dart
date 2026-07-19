@@ -12,12 +12,10 @@ import '../models/product.dart';
 import '../models/sale.dart';
 
 class DatabaseService {
-  DatabaseService._({String? configuredDatabasePath})
-      : _configuredDatabasePath = configuredDatabasePath;
+  DatabaseService._({this._configuredDatabasePath});
 
-  DatabaseService.forTesting({
-    String databasePath = inMemoryDatabasePath,
-  }) : this._(configuredDatabasePath: databasePath);
+  DatabaseService.forTesting({String databasePath = inMemoryDatabasePath})
+    : this._(configuredDatabasePath: databasePath);
 
   static final DatabaseService instance = DatabaseService._();
 
@@ -95,10 +93,10 @@ class DatabaseService {
     ''');
 
     await db.execute(
-      'CREATE UNIQUE INDEX idx_products_sku ON products(sku) WHERE sku <> ""',
+      "CREATE UNIQUE INDEX idx_products_sku ON products(sku) WHERE sku <> ''",
     );
     await db.execute(
-      'CREATE UNIQUE INDEX idx_products_barcode ON products(barcode) WHERE barcode <> ""',
+      "CREATE UNIQUE INDEX idx_products_barcode ON products(barcode) WHERE barcode <> ''",
     );
 
     await db.execute('''
@@ -282,12 +280,7 @@ class DatabaseService {
     if (product.id == null) throw ArgumentError('Product ID is required.');
     final db = await database;
     final map = product.toMap()..remove('id');
-    await db.update(
-      'products',
-      map,
-      where: 'id = ?',
-      whereArgs: [product.id],
-    );
+    await db.update('products', map, where: 'id = ?', whereArgs: [product.id]);
   }
 
   Future<void> deleteProduct(int id) async {
@@ -439,7 +432,8 @@ class DatabaseService {
       'SELECT COALESCE(SUM(amount), 0) AS value FROM expenses WHERE created_at >= ?',
       [monthStart],
     );
-    final grossProfit = await db.rawQuery('''
+    final grossProfit = await db.rawQuery(
+      '''
       SELECT COALESCE(SUM(sale_profit), 0) AS value
       FROM (
         SELECT s.id,
@@ -449,7 +443,9 @@ class DatabaseService {
         WHERE s.created_at >= ?
         GROUP BY s.id
       )
-    ''', [monthStart]);
+    ''',
+      [monthStart],
+    );
 
     return DashboardMetrics(
       todaySales: _doubleValue(todaySales.first, 'value'),
@@ -475,11 +471,10 @@ class DatabaseService {
     final db = await database;
     await db.transaction((txn) async {
       for (final entry in settings.entries) {
-        await txn.insert(
-          'settings',
-          {'setting_key': entry.key, 'setting_value': entry.value},
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
+        await txn.insert('settings', {
+          'setting_key': entry.key,
+          'setting_value': entry.value,
+        }, conflictAlgorithm: ConflictAlgorithm.replace);
       }
     });
   }
@@ -506,7 +501,10 @@ class DatabaseService {
         .toIso8601String()
         .replaceAll(RegExp(r'[-:T.]'), '')
         .substring(0, 14);
-    final suffix = dateTime.microsecondsSinceEpoch.remainder(1000).toString().padLeft(3, '0');
+    final suffix = dateTime.microsecondsSinceEpoch
+        .remainder(1000)
+        .toString()
+        .padLeft(3, '0');
     return 'ABM-$stamp-$suffix';
   }
 }

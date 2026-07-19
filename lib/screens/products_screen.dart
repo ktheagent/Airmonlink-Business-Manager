@@ -75,16 +75,32 @@ class _ProductsScreenState extends State<ProductsScreen> {
                             return DataRow(
                               cells: [
                                 DataCell(Text(product.name)),
-                                DataCell(Text(product.sku.isEmpty ? '—' : product.sku)),
+                                DataCell(
+                                  Text(product.sku.isEmpty ? '—' : product.sku),
+                                ),
                                 DataCell(Text(product.category)),
-                                DataCell(Text(AppFormatters.money(product.costPrice))),
-                                DataCell(Text(AppFormatters.money(product.sellingPrice))),
-                                DataCell(Text(product.stockQty.toStringAsFixed(1))),
+                                DataCell(
+                                  Text(AppFormatters.money(product.costPrice)),
+                                ),
+                                DataCell(
+                                  Text(
+                                    AppFormatters.money(product.sellingPrice),
+                                  ),
+                                ),
+                                DataCell(
+                                  Text(product.stockQty.toStringAsFixed(1)),
+                                ),
                                 DataCell(
                                   Chip(
-                                    label: Text(product.isLowStock ? 'Low stock' : 'In stock'),
+                                    label: Text(
+                                      product.isLowStock
+                                          ? 'Low stock'
+                                          : 'In stock',
+                                    ),
                                     avatar: Icon(
-                                      product.isLowStock ? Icons.warning_amber : Icons.check_circle,
+                                      product.isLowStock
+                                          ? Icons.warning_amber
+                                          : Icons.check_circle,
                                       size: 17,
                                     ),
                                   ),
@@ -95,8 +111,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                     children: [
                                       IconButton(
                                         tooltip: 'Adjust stock',
-                                        onPressed: () => _adjustStock(context, state, product),
-                                        icon: const Icon(Icons.inventory_2_outlined),
+                                        onPressed: () => _adjustStock(
+                                          context,
+                                          state,
+                                          product,
+                                        ),
+                                        icon: const Icon(
+                                          Icons.inventory_2_outlined,
+                                        ),
                                       ),
                                       IconButton(
                                         tooltip: 'Edit product',
@@ -109,7 +131,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                       ),
                                       IconButton(
                                         tooltip: 'Delete product',
-                                        onPressed: () => _deleteProduct(context, state, product),
+                                        onPressed: () => _deleteProduct(
+                                          context,
+                                          state,
+                                          product,
+                                        ),
                                         icon: const Icon(Icons.delete_outline),
                                       ),
                                     ],
@@ -136,11 +162,21 @@ class _ProductsScreenState extends State<ProductsScreen> {
     final name = TextEditingController(text: product?.name ?? '');
     final sku = TextEditingController(text: product?.sku ?? '');
     final barcode = TextEditingController(text: product?.barcode ?? '');
-    final category = TextEditingController(text: product?.category ?? 'General');
-    final cost = TextEditingController(text: product?.costPrice.toStringAsFixed(2) ?? '0.00');
-    final selling = TextEditingController(text: product?.sellingPrice.toStringAsFixed(2) ?? '0.00');
-    final stock = TextEditingController(text: product?.stockQty.toStringAsFixed(1) ?? '0');
-    final lowStock = TextEditingController(text: product?.lowStockLevel.toStringAsFixed(1) ?? '5');
+    final category = TextEditingController(
+      text: product?.category ?? 'General',
+    );
+    final cost = TextEditingController(
+      text: product?.costPrice.toStringAsFixed(2) ?? '0.00',
+    );
+    final selling = TextEditingController(
+      text: product?.sellingPrice.toStringAsFixed(2) ?? '0.00',
+    );
+    final stock = TextEditingController(
+      text: product?.stockQty.toStringAsFixed(1) ?? '0',
+    );
+    final lowStock = TextEditingController(
+      text: product?.lowStockLevel.toStringAsFixed(1) ?? '5',
+    );
     final formKey = GlobalKey<FormState>();
 
     final shouldSave = await showDialog<bool>(
@@ -160,7 +196,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     width: 288,
                     child: TextFormField(
                       controller: name,
-                      decoration: const InputDecoration(labelText: 'Product name'),
+                      decoration: const InputDecoration(
+                        labelText: 'Product name',
+                      ),
                       validator: _required,
                     ),
                   ),
@@ -190,8 +228,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     width: 288,
                     child: TextFormField(
                       controller: cost,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      decoration: const InputDecoration(labelText: 'Cost price'),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      decoration: const InputDecoration(
+                        labelText: 'Cost price',
+                      ),
                       validator: _nonNegativeNumber,
                     ),
                   ),
@@ -199,8 +241,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     width: 288,
                     child: TextFormField(
                       controller: selling,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      decoration: const InputDecoration(labelText: 'Selling price'),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      decoration: const InputDecoration(
+                        labelText: 'Selling price',
+                      ),
                       validator: _nonNegativeNumber,
                     ),
                   ),
@@ -208,8 +254,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     width: 288,
                     child: TextFormField(
                       controller: stock,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      decoration: const InputDecoration(labelText: 'Opening stock'),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      decoration: const InputDecoration(
+                        labelText: 'Opening stock',
+                      ),
                       validator: _nonNegativeNumber,
                     ),
                   ),
@@ -217,8 +267,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     width: 288,
                     child: TextFormField(
                       controller: lowStock,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      decoration: const InputDecoration(labelText: 'Low-stock alert level'),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      decoration: const InputDecoration(
+                        labelText: 'Low-stock alert level',
+                      ),
                       validator: _nonNegativeNumber,
                     ),
                   ),
@@ -290,8 +344,16 @@ class _ProductsScreenState extends State<ProductsScreen> {
               children: [
                 SegmentedButton<bool>(
                   segments: const [
-                    ButtonSegment(value: true, label: Text('Add stock'), icon: Icon(Icons.add)),
-                    ButtonSegment(value: false, label: Text('Remove stock'), icon: Icon(Icons.remove)),
+                    ButtonSegment(
+                      value: true,
+                      label: Text('Add stock'),
+                      icon: Icon(Icons.add),
+                    ),
+                    ButtonSegment(
+                      value: false,
+                      label: Text('Remove stock'),
+                      icon: Icon(Icons.remove),
+                    ),
                   ],
                   selected: {addStock},
                   onSelectionChanged: (selection) {
@@ -301,14 +363,19 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 const SizedBox(height: 16),
                 TextField(
                   controller: amount,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
                   decoration: const InputDecoration(labelText: 'Quantity'),
                 ),
               ],
             ),
           ),
           actions: [
-            TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text('Cancel')),
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: const Text('Cancel'),
+            ),
             FilledButton(
               onPressed: () {
                 final parsed = double.tryParse(amount.text.trim());
@@ -340,10 +407,18 @@ class _ProductsScreenState extends State<ProductsScreen> {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: const Text('Delete product?'),
-        content: Text('Delete ${product.name}? Existing sale records will remain.'),
+        content: Text(
+          'Delete ${product.name}? Existing sale records will remain.',
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('Cancel')),
-          FilledButton(onPressed: () => Navigator.pop(dialogContext, true), child: const Text('Delete')),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Delete'),
+          ),
         ],
       ),
     );

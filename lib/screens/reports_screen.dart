@@ -14,14 +14,16 @@ class ReportsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = AppStateScope.of(context);
-    final netEstimate = state.metrics.monthGrossProfit - state.metrics.monthExpenses;
+    final netEstimate =
+        state.metrics.monthGrossProfit - state.metrics.monthExpenses;
 
     return ListView(
       padding: const EdgeInsets.all(24),
       children: [
         PageHeader(
           title: 'Reports and printing',
-          subtitle: 'Preview every document before printing or save a PDF copy.',
+          subtitle:
+              'Preview every document before printing or save a PDF copy.',
           actions: [
             OutlinedButton.icon(
               onPressed: () => _exportInventory(context, state),
@@ -49,7 +51,8 @@ class ReportsScreen extends StatelessWidget {
         LayoutBuilder(
           builder: (context, constraints) {
             final columns = constraints.maxWidth >= 950 ? 3 : 1;
-            final width = (constraints.maxWidth - ((columns - 1) * 14)) / columns;
+            final width =
+                (constraints.maxWidth - ((columns - 1) * 14)) / columns;
             return Wrap(
               spacing: 14,
               runSpacing: 14,
@@ -94,14 +97,16 @@ class ReportsScreen extends StatelessWidget {
                 Text(
                   'Sales register',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 if (state.sales.isEmpty)
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 28),
-                    child: Center(child: Text('No sales are available for reporting.')),
+                    child: Center(
+                      child: Text('No sales are available for reporting.'),
+                    ),
                   )
                 else
                   SingleChildScrollView(
@@ -119,7 +124,9 @@ class ReportsScreen extends StatelessWidget {
                         return DataRow(
                           cells: [
                             DataCell(Text(sale.invoiceNo)),
-                            DataCell(Text(AppFormatters.dateTime(sale.createdAt))),
+                            DataCell(
+                              Text(AppFormatters.dateTime(sale.createdAt)),
+                            ),
                             DataCell(Text(sale.paymentMethod)),
                             DataCell(Text(AppFormatters.money(sale.subtotal))),
                             DataCell(Text(AppFormatters.money(sale.discount))),

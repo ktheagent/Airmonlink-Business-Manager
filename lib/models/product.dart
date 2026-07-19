@@ -52,28 +52,28 @@ class Product {
   }
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': name,
-        'sku': sku,
-        'barcode': barcode,
-        'category': category,
-        'cost_price': costPrice,
-        'selling_price': sellingPrice,
-        'stock_qty': stockQty,
-        'low_stock_level': lowStockLevel,
-        'created_at': createdAt.toIso8601String(),
-      };
+    'id': id,
+    'name': name,
+    'sku': sku,
+    'barcode': barcode,
+    'category': category,
+    'cost_price': costPrice,
+    'selling_price': sellingPrice,
+    'stock_qty': stockQty,
+    'low_stock_level': lowStockLevel,
+    'created_at': createdAt.toIso8601String(),
+  };
 
   factory Product.fromMap(Map<String, Object?> map) => Product(
-        id: map['id'] as int?,
-        name: map['name'] as String,
-        sku: map['sku'] as String? ?? '',
-        barcode: map['barcode'] as String? ?? '',
-        category: map['category'] as String? ?? 'General',
-        costPrice: (map['cost_price'] as num).toDouble(),
-        sellingPrice: (map['selling_price'] as num).toDouble(),
-        stockQty: (map['stock_qty'] as num).toDouble(),
-        lowStockLevel: (map['low_stock_level'] as num).toDouble(),
-        createdAt: DateTime.parse(map['created_at'] as String),
-      );
+    id: map['id'] as int?,
+    name: map['name'] as String,
+    sku: map['sku'] as String? ?? '',
+    barcode: map['barcode'] as String? ?? '',
+    category: map['category'] as String? ?? 'General',
+    costPrice: (map['cost_price'] as num).toDouble(),
+    sellingPrice: (map['selling_price'] as num).toDouble(),
+    stockQty: (map['stock_qty'] as num).toDouble(),
+    lowStockLevel: (map['low_stock_level'] as num).toDouble(),
+    createdAt: DateTime.parse(map['created_at'] as String),
+  );
 }

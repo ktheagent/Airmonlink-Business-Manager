@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1+4 — 2026-07-19
+
+- Fixed SQLite partial-index SQL quoting for empty SKU values.
+- Fixed receipt PDF generation by using a finite thermal-paper height.
+- Resolved analyzer failures caused by unbraced single-line if statements.
+- Applied Dart formatting and safe automatic fixes.
+
 ## 1.0.0+3 — 2026-07-19
 
 - Replaced the incomplete PDF-only export path with actual Windows print preview and printing through `printing` 5.15.0.

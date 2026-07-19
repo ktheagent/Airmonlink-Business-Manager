@@ -8,26 +8,29 @@ void main() {
   group('ReportService PDF generation', () {
     final service = ReportService();
 
-    test('summary PDF has a valid header and visible document payload', () async {
-      final bytes = await service.buildSummaryPdf(
-        pageFormat: PdfPageFormat.a4,
-        businessName: 'Airmonlink Test Shop',
-        metrics: const DashboardMetrics(
-          todaySales: 150,
-          todayTransactions: 2,
-          totalProducts: 5,
-          lowStockProducts: 1,
-          customerDebt: 40,
-          monthExpenses: 25,
-          monthGrossProfit: 90,
-        ),
-        sales: const [],
-        expenses: const [],
-      );
+    test(
+      'summary PDF has a valid header and visible document payload',
+      () async {
+        final bytes = await service.buildSummaryPdf(
+          pageFormat: PdfPageFormat.a4,
+          businessName: 'Airmonlink Test Shop',
+          metrics: const DashboardMetrics(
+            todaySales: 150,
+            todayTransactions: 2,
+            totalProducts: 5,
+            lowStockProducts: 1,
+            customerDebt: 40,
+            monthExpenses: 25,
+            monthGrossProfit: 90,
+          ),
+          sales: const [],
+          expenses: const [],
+        );
 
-      expect(String.fromCharCodes(bytes.take(5)), '%PDF-');
-      expect(bytes.length, greaterThan(500));
-    });
+        expect(String.fromCharCodes(bytes.take(5)), '%PDF-');
+        expect(bytes.length, greaterThan(500));
+      },
+    );
 
     test('receipt PDF has a valid header and item payload', () async {
       const sale = SaleDraft(
