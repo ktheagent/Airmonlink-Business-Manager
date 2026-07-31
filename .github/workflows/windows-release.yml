@@ -3,9 +3,9 @@ name: Validate and Build Windows Release
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, feature/build8-commercial-suite]
   pull_request:
-    branches: [main]
+    branches: [main, feature/build8-commercial-suite]
 
 permissions:
   contents: read
@@ -22,7 +22,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2.23.0
         with:
-          flutter-version: '3.44.0'
+          flutter-version: '3.44.5'
           channel: stable
           cache: true
 
@@ -32,8 +32,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Format source
-        run: dart format lib test
+      - name: Verify source formatting
+        run: dart format --output=none --set-exit-if-changed lib test
 
       - name: Static analysis
         run: flutter analyze
@@ -60,10 +60,29 @@ jobs:
         shell: pwsh
         run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\airmonlink_business_manager.iss'
 
+      - name: Verify release files and calculate SHA-256
+        shell: pwsh
+        run: |
+          $expected = @(
+            'dist/Airmonlink-Business-Manager-1.3.0-Build8-Setup.exe',
+            'dist/Airmonlink-Business-Manager-1.3.0-Build8-Portable.zip'
+          )
+          foreach ($file in $expected) {
+            if (-not (Test-Path $file)) { throw "Missing release file: $file" }
+          }
+          if (Get-ChildItem dist -File | Where-Object { $_.Name -match 'build[56]|1\.1\.1' }) {
+            throw 'Inherited Build 5/6 release filename detected.'
+          }
+          $lines = foreach ($file in $expected) {
+            $hash = (Get-FileHash $file -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $([System.IO.Path]::GetFileName($file))"
+          }
+          $lines | Set-Content 'dist/Airmonlink-Business-Manager-1.3.0-Build8-SHA256SUMS.txt'
+
       - name: Upload release packages
         uses: actions/upload-artifact@v7
         with:
-          name: Airmonlink-Business-Manager-1.0.1-build4-Windows
+          name: Airmonlink-Business-Manager-1.3.0-Build8-Windows
           path: dist/*
           if-no-files-found: error
           retention-days: 30
