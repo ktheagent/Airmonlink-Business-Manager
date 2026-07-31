@@ -10,15 +10,15 @@ dependencies:
   crypto: ^3.0.7
   cryptography: ^2.9.0
   excel: ^4.0.6
-  file_picker: ^11.0.3
-  device_info_plus: ^13.2.0
+  file_picker: ^11.0.2
+  device_info_plus: ^12.4.0
   flutter:
     sdk: flutter
   flutter_secure_storage: ^10.3.1
   http: ^1.6.0
   intl: 0.20.2
   mailer: ^7.2.0
-  package_info_plus: ^10.2.1
+  package_info_plus: ^9.0.1
   path: 1.9.1
   path_provider: 2.1.6
   pdf: 3.13.0
