@@ -1,50 +1,79 @@
-# Source validation report
+# Build 8 source validation report
 
 **Product:** Airmonlink Business Manager  
-**Release:** 1.0.1+4 (build 3)  
-**Validation date:** 2026-07-19
+**Release:** 1.3.0+8  
+**Validation date:** 2026-07-31  
+**Release decision:** RELEASE REJECTED pending Flutter and Windows CI
 
-## Printing correction delivered
+## Baseline
 
-- Added the supported Flutter `printing` package for Windows print preview and native printer submission.
-- Added explicit A4, A5 and Letter business-summary preview and printing.
-- Added 57 mm and 80 mm receipt preview and printing after every completed sale.
-- Added a high-contrast printer test page under Business Settings.
-- Added explicit Helvetica regular, bold, italic and bold-italic PDF fonts.
-- Added visible no-sales and no-expenses rows so a report cannot appear empty when the database has no records.
-- Added PDF byte validation that rejects missing, undersized or invalid PDF output before saving or printing.
-- Added source tests for summary and receipt PDF generation.
-- Preserved the existing SQLite schema and business data model.
+The verified Build 6 source was used as the baseline. Its one-time trial, paid activation, shared licence state, offline grace, revocation persistence, Windows runner, printing, POS and SQLite data model were retained.
 
-## Checks completed in the delivery environment
+## Validation completed in this environment
 
-- Repository structure and required release files: **PASS**
-- Dart delimiter, string and comment structural scan: **PASS**
+- Source archive extraction and structure: **PASS**
+- Build 8 identity scan: **PASS**
 - Relative Dart import resolution: **PASS**
-- YAML parsing for workflows, Dependabot and issue forms: **PASS**
-- Release naming and version consistency: **PASS**
-- SQLite schema execution in an in-memory database: **PASS**
-- Credential and secret-pattern scan: **PASS**
-- Printing API names checked against the official `printing` 5.15.0 and `pdf` 3.13.0 documentation: **PASS**
-- Dart source and test files: **29**
-- Dart source and test lines: **4209**
-- Repository files before manifest generation: **53**
+- Dart delimiter/string/comment structural scan: **PASS**
+- App-state to commercial-service method reference scan: **PASS**
+- YAML parse of `pubspec.yaml` and workflow: **PASS**
+- Build 6 schema fixture to schema version 8 simulation: **PASS**
+- Legacy row-count preservation: **PASS**
+- Commercial table creation: **PASS — 41 tables**
+- `PRAGMA integrity_check`: **PASS — ok**
+- `PRAGMA foreign_key_check`: **PASS — zero violations**
+- Main-branch inventory migration: **PASS**
+- Branch-scoped customer/supplier migration: **PASS**
+- Commercial report/debt/transfer SQL query execution: **PASS**
 
-## Validation not performed locally
+## Source checkpoint validator
 
-The delivery environment did not contain Flutter, Dart, Visual Studio, a Windows runner, a physical printer or Inno Setup. Therefore, the following are **not claimed as locally completed**:
+- Deterministic checks: **17**
+- Passed: **16**
+- Warnings: **1** (`pubspec.lock` requires `flutter pub get`)
+- Failed: **0**
 
-- `dart format`
-- `flutter analyze`
-- `flutter test`
-- `flutter build windows --release`
-- Windows application launch
-- PDF preview rendering through Windows PDFium
-- Physical 57 mm, 80 mm or A4 printer testing
-- Inno Setup installer compilation or installation testing
+See `BUILD8-SOURCE-VALIDATION.txt`.
 
-The included GitHub Actions workflow performs formatting, static analysis, tests, Windows compilation, portable packaging and installer creation using Flutter 3.44.0. A release should be distributed only after that workflow succeeds and the printer test page, receipt and report are tested on the target Windows computer.
+## Regression source tests added
 
-## Artifact status
+- Salted staff PIN hashing
+- Invoice debt posted once and part payment allocation
+- First purchase receipt increases stock once
+- Quotation conversion deducts stock once
+- Cashier discount denial
+- Customer credit and branch-scoped payment
+- Stock-transfer dispatch/receipt once
+- Month-end recurring-expense clamping
 
-This delivery is the canonical **full-source** printing-fix release. It does not contain a compiled `.exe` or installer produced in this environment.
+These tests exist in source but were **not executed** because Flutter/Dart are not installed here.
+
+## Required CI validation — MISSING
+
+- `flutter pub get`
+- regenerated `pubspec.lock`
+- Dart formatting gate
+- Flutter analysis
+- Flutter test execution
+- Windows release compilation
+- Inno Setup compilation
+- Portable application launch
+- Installed upgrade/data-preservation test
+- Real printer and USB scanner test
+- Live SMTP/WebDAV/WhatsApp/update endpoint tests
+
+## Known partial areas
+
+- The service layer supports multi-line documents and purchase orders, but the first Build 8 UI creates one product line per new document/order.
+- Recurring-expense service supports multiple frequencies; the initial UI exposes a simplified monthly creation flow.
+- Branch transfer discrepancy/cancellation workflows require additional UI coverage.
+- Audit filtering/export is not complete.
+- Advanced report service supports date/branch inputs, but the UI does not expose every filter.
+- Update downloads verify HTTPS and SHA-256; executable digital-signature verification is not implemented.
+- WhatsApp uses a Web link rather than a configured WhatsApp Business API integration.
+
+## Final status
+
+The package is a source checkpoint for CI and corrective development. It is not a final customer installer.
+
+**RELEASE REJECTED**

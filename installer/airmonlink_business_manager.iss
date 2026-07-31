@@ -1,5 +1,5 @@
 #define MyAppName "Airmonlink Business Manager"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "1.3.0"
 #define MyAppPublisher "Airmonlink"
 #define MyAppExeName "airmonlink_business_manager.exe"
 
@@ -12,21 +12,22 @@ DefaultDirName={autopf}\Airmonlink Business Manager
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=..\dist
-OutputBaseFilename=Airmonlink-Business-Manager-1.0.1-build4-Setup
+OutputBaseFilename=Airmonlink-Business-Manager-1.3.0-Build8-Setup
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=lowest
+LicenseFile=..\installer\Airmonlink-Business-Manager-EULA.rtf
 UninstallDisplayIcon={app}\{#MyAppExeName}
 
 [Files]
 Source: "..\build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#MyAppExeName}"; IconIndex: 0
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#MyAppExeName}"; IconIndex: 0; Tasks: desktopicon
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription: "Additional icons:"; Flags: unchecked

@@ -1,0 +1,20 @@
+Requirement ID,Requirement,Status,Source evidence,Test/evidence,Limitation,Corrective commit
+B7-01,Staff accounts and five system roles,SOURCE IMPLEMENTED,lib/commercial/services/commercial_service.dart; lib/commercial/screens/staff_access_screen.dart,test/commercial_service_test.dart,Flutter execution MISSING,MISSING — no CI commit hash
+B7-02,Service and UI permission enforcement,SOURCE IMPLEMENTED,lib/commercial/models/commercial_models.dart; lib/state/app_state.dart; lib/screens/shell_screen.dart,cashier discount regression source test,Flutter execution MISSING,MISSING — no CI commit hash
+B7-03,Audit trail for sensitive operations,SOURCE IMPLEMENTED,lib/commercial/services/commercial_service.dart; audit_logs,structural/SQL audit PASS,Filtering/export PARTIAL,MISSING — no CI commit hash
+B7-04,Returns and refunds,SOURCE IMPLEMENTED,commercial_service.dart; commercial_suite_screen.dart; returns/refunds tables,source review,Live workflow MISSING,MISSING — no CI commit hash
+B7-05,Cash register shifts and variance,SOURCE IMPLEMENTED,commercial_service.dart; cash_sessions/cash_movements,source transaction audit,Flutter execution MISSING,MISSING — no CI commit hash
+B7-06,Advanced profit reporting,PARTIAL,commercial_report_service.dart; commercial_suite_screen.dart,SQL query audit PASS,All requested filters/charts incomplete,MISSING — no CI commit hash
+B7-07,"Low-stock, expiry and reorder alerts",PARTIAL,commercial_service.dart; product_batches; branch_inventory,SQL/source audit,Suggested purchasing model is basic,MISSING — no CI commit hash
+B8-01,Commercial documents and conversion,SOURCE IMPLEMENTED,documents/document_items; commercial_service.dart; commercial_document_service.dart,conversion regression source test,Initial creation UI is single-line,MISSING — no CI commit hash
+B8-02,Purchase orders and supplier accounts,SOURCE IMPLEMENTED,purchase_orders; goods_receipts; supplier_payments,receipt regression source test,Initial creation UI is single-line,MISSING — no CI commit hash
+B8-03,Customer debt and statements,SOURCE IMPLEMENTED,customer_transactions; commercial_suite_screen.dart,branch/credit regression source test,Ageing UI PARTIAL,MISSING — no CI commit hash
+B8-04,Stock adjustment/counting/barcode labels,SOURCE IMPLEMENTED,stock_adjustments; stock_counts; commercial_document_service.dart,source/SQL audit,Physical printer/scanner MISSING,MISSING — no CI commit hash
+B8-05,Multi-branch and stock transfer,SOURCE IMPLEMENTED,branches; branch_inventory; stock_transfers,transfer regression source test,Discrepancy/cancellation UI PARTIAL,MISSING — no CI commit hash
+B8-06,Encrypted local/WebDAV backup and restore,SOURCE IMPLEMENTED,backup_service.dart; secure_config_service.dart,source structural audit,Live restore/WebDAV MISSING,MISSING — no CI commit hash
+B8-07,Remote owner dashboard,SOURCE IMPLEMENTED,remote_dashboard_service.dart,source structural audit,Live network test MISSING,MISSING — no CI commit hash
+B8-08,WhatsApp/email documents,PARTIAL,notification_service.dart; settings_screen.dart,source structural audit,WhatsApp Business API not implemented,MISSING — no CI commit hash
+B8-09,Recurring expenses/reminders,SOURCE IMPLEMENTED,recurring_expenses; app_state.dart,month-end regression source test,UI simplified,MISSING — no CI commit hash
+B8-10,CSV/XLSX data import,SOURCE IMPLEMENTED,import_service.dart; import_jobs,source structural audit,Flutter execution MISSING,MISSING — no CI commit hash
+B8-11,Automatic software updates,PARTIAL,update_service.dart; update_records,SHA-256 source logic review,Digital signature verification INCOMPLETE,MISSING — no CI commit hash
+B8-12,Business health dashboard,PARTIAL,commercial_service.dart; commercial_suite_screen.dart,SQL query audit PASS,Full trend/chart set incomplete,MISSING — no CI commit hash

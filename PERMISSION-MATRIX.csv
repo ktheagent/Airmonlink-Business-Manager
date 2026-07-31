@@ -1,0 +1,27 @@
+Permission,Owner,Manager,Cashier,Accountant,Stock Officer
+dashboard.view,YES,YES,YES,YES,YES
+sales.process,YES,YES,YES,NO,NO
+sales.discount,YES,YES,NO,NO,NO
+sales.void,YES,YES,NO,NO,NO
+sales.refund,YES,YES,NO,NO,NO
+products.manage,YES,YES,NO,NO,YES
+stock.adjust,YES,YES,NO,NO,YES
+stock.count,YES,YES,NO,NO,YES
+purchasing.manage,YES,YES,NO,NO,YES
+debt.view,YES,YES,YES,YES,NO
+debt.payment,YES,YES,NO,YES,NO
+expenses.view,YES,YES,NO,YES,NO
+expenses.manage,YES,YES,NO,YES,NO
+reports.view,YES,YES,NO,YES,YES
+reports.profit,YES,YES,NO,YES,NO
+cash.manage,YES,YES,NO,YES,NO
+documents.manage,YES,YES,YES,YES,NO
+audit.view,YES,YES,NO,YES,NO
+staff.manage,YES,YES,NO,NO,NO
+branches.manage,YES,YES,NO,NO,NO
+settings.manage,YES,YES,NO,NO,NO
+backups.manage,YES,YES,NO,NO,NO
+license.manage,YES,NO,NO,NO,NO
+remote_dashboard.manage,YES,YES,NO,NO,NO
+imports.manage,YES,YES,NO,NO,YES
+updates.manage,YES,YES,NO,NO,NO

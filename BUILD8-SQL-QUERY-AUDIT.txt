@@ -1,0 +1,5 @@
+customer_accounts PASS [{"id": 1, "name": "Legacy Customer", "phone": "0240000000", "email": "legacy@example.com", "balance": 50.0, "credit_limit": 0.0, "credit_enabled": 1, "created_at": "2026-07-31T18:00:00", "overdue_balance": 10.0, "oldest_due_at": "2026-06-01T00:00:00"}]
+profit_product PASS [{"product_id": 1, "product_name": "Legacy Product", "category": "Legacy", "quantity": 1.0, "revenue": 8.0, "cost_of_goods": 5.0, "gross_profit": 3.0}]
+profit_branch PASS [{"branch_id": 1, "branch_name": "Main Branch", "revenue": 8.0, "discounts": 0.0, "returns": 0.0, "gross_profit": 3.0}, {"branch_id": 2, "branch_name": "Second", "revenue": 0, "discounts": 0, "returns": 0, "gross_profit": 0}]
+transfers PASS [{"id": 1, "transfer_no": "TRF-1", "source_branch_id": 1, "destination_branch_id": 2, "status": "draft", "created_by": 1, "dispatched_by": null, "received_by": null, "dispatched_at": null, "received_at": null, "notes": "test", "created_at": "2026-07-31T18:00:00", "source_branch_name": "Main Branch", "destination_branch_name": "Second", "created_by_name": "Owner"}]
+integrity ok fk 0

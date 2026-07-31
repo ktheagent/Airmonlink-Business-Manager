@@ -1,0 +1,18 @@
+PASS | required source files | 11 present
+PASS | YAML parse pubspec.yaml | parsed
+PASS | YAML parse .github/workflows/windows-release.yml | parsed
+PASS | Build 8 identity pubspec.yaml | version:\s*1\.3\.0\+8
+PASS | Build 8 identity lib/core/app_constants.dart | version\s*=\s*'1\.3\.0\+8'
+PASS | Build 8 identity installer/airmonlink_business_manager.iss | Build8-Setup
+PASS | Build 8 identity tool/package_windows.ps1 | Build8-Portable\.zip
+PASS | Build 8 identity .github/workflows/windows-release.yml | Build8-Windows
+PASS | relative Dart imports | all resolved
+PASS | Dart lexical delimiter scan | 58 files; no structural imbalance
+PASS | no backup/editor files | none
+PASS | hard-coded secret pattern scan | none
+PASS | commercial schema table count | 41 tables
+PASS | database schema version | expected 8
+PASS | Build 6 licensing regression sources | never extends expiry, paid activation immediately replaces, remains revoked offline
+WARN | Build 8 dependency lockfile | missing: cryptography, excel, file_picker, mailer; run flutter pub get in CI
+PASS | source test inventory | 24 directly detected test declarations
+SUMMARY | {"passed": 16, "warnings": 1, "failed": 0, "checks": 17}

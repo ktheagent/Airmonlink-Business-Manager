@@ -1,0 +1,41 @@
+{
+  "source_schema_tables": 7,
+  "final_tables": 41,
+  "preserved_counts": true,
+  "before_counts": {
+    "products": 1,
+    "customers": 1,
+    "suppliers": 1,
+    "sales": 1,
+    "sale_items": 1,
+    "expenses": 1,
+    "settings": 1
+  },
+  "after_counts": {
+    "products": 1,
+    "customers": 1,
+    "suppliers": 1,
+    "sales": 1,
+    "sale_items": 1,
+    "expenses": 1,
+    "settings": 1
+  },
+  "integrity": "ok",
+  "foreign_key_violations": 0,
+  "main_branch_inventory": 20.0,
+  "legacy_product_stock": 20.0,
+  "customer_branch": 1,
+  "supplier_branch": 1,
+  "legacy_cash_sale_paid": [
+    8.0,
+    0.0,
+    "completed"
+  ],
+  "required_columns": {
+    "documents.debt_posted": true,
+    "purchase_orders.received_value": true,
+    "stock_transfers.created_by": true,
+    "customers.credit_limit": true,
+    "sales.returned_total": true
+  }
+}

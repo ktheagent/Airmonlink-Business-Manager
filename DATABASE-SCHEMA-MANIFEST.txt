@@ -1,0 +1,45 @@
+Airmonlink Business Manager 1.3.0+8
+Database schema version: 8
+Table count: 41
+
+audit_logs
+backup_records
+branch_inventory
+branches
+cash_movements
+cash_registers
+cash_sessions
+customer_transactions
+customers
+document_items
+document_payments
+documents
+expenses
+goods_receipts
+import_jobs
+notification_logs
+product_batches
+products
+purchase_order_items
+purchase_orders
+recurring_expenses
+refunds
+reminders
+return_items
+returns
+role_permissions
+roles
+sale_items
+sales
+settings
+staff_sessions
+stock_adjustments
+stock_count_items
+stock_counts
+stock_transfer_items
+stock_transfers
+supplier_payments
+suppliers
+update_records
+user_permissions
+users
